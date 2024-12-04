@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PASS</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <style>
+        body{
+            background-color: #D6F5EE;
+        }
+
+        .hospital{
+            position: absolute;
+            top: -0.8%;
+            left: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .navbar{
+            position: relative;
+            top: -2%;
+            left: -0.1%;
+            background-color: #626262;
+            height: 10%;
+            width: 100%;
+        }
+        .content{
+            display: flex;
+            gap: 150px;
+        }
+
+        .map{
+            position: relative;
+            left: 100px;
+            height: 600px;
+            width: 800px;
+            border: 15px solid wheat;
+        }
+
+        .text{
+            padding: 50px;
+            border-radius: 15px;
+            border: 1px solid black;
+        }
+
+        .count{
+            display: flex;
+            gap: 50px;
+        }
+
+        .accidents,
+        .ambulance{
+            height: 180px;
+            width: 160px;
+            color: white;
+            text-align: center;
+            border-radius: 15px;
+            background-color: deeppink;
+        }
+
+        .switch label{
+            bottom: 8px;
+        }
+
+        .toggle {
+            position: relative;
+            margin-top: 50px;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #4CAF50;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        .request-list{
+            margin-top: 50px;
+        }
+
+        #list{
+            list-style: none;
+            padding: 0;
+        }
+
+        li{
+            background: #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        li p{
+            text-align: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        li span{
+            margin-right: 10px;
+        }
+
+        .done-btn {
+            background: transparent;
+            color: red;
+            border: 1px solid red;
+            border-radius: 5px;
+            cursor: pointer;
+            padding: 5px 10px;
+
+        }
+
+        .done-btn:hover {
+            background: red;
+            color: #fff;
+            border: 1px solid #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="hospital">
+        <div class="navbar">
+            <h1>PASS</h1>
+        </div>
+
+        <div class="content">
+            <div id="map" class="map"></div>
+            <div class="text">
+                <div class="count">
+                    <div class="accidents">
+                        <h1>Accident Count</h1>
+                        <h2>0</h2>
+                    </div>
+                    <div class="ambulance">
+                        <h1>Ambulance count</h1>
+                        <h2>5</h2>
+                    </div>
+                </div>
+
+                <div class="switch">
+                    <label for="">Open For Requests: </label>
+                    <label class="toggle">
+                        <input type="checkbox" id="toggleInput">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+
+                <div class="request-list">
+                    <fieldset>
+                        <legend>Pending Requests</legend>
+                        <div class="requests">
+                            <ol id="list"></ol>
+                        </div>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const requests = [];
+        const requestList = document.getElementById('list');
+        const toggle = document.querySelector('.slider');
+        let toggle_val = 0;
+
+        function removeRequest(index) {
+            requests.splice(index, 1);
+            update();
+        }
+
+        function update() {
+            if (toggle_val === 1) {
+                if (requests.length === 0) {
+                    requestList.innerHTML = '<li><p class="empty-list">No Pending Requests</p></li>';
+                } else {
+                    requestList.innerHTML = '';
+                    requests.forEach((request, index) => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `<span>Name: ${request.Name}, ETA: ${request.ETA}, Severity: ${request.severity}</span>
+                        <button class="done-btn" onclick="removeRequest(${index})">Done</button>`;
+                        requestList.appendChild(li);
+                    });
+                }
+            } else {
+                requestList.innerHTML = '<li><p>Not Accepting Requests</p></li>';
+            }
+        }
+
+        toggle.addEventListener("click", () => {
+            toggle_val = toggle_val === 0 ? 1 : 0;
+            update();
+        });
+
+        var map = L.map('map').setView([11.0225, 76.9606], 13);
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        var marker = L.marker([11.0225, 76.9606]).addTo(map);
+        marker.bindPopup("<b>Ganga Hospital</b><br>&nbsp;&nbsp;&nbsp;Coimbatore.").openPopup();
+
+        update();
+
+        
+        const socket = new WebSocket('ws://sample-server-plq2.onrender.com');
+
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (toggle_val === 1) {
+                showPopup(data.name, data.eta, data.severity, data.lat, data.lng);
+            }
+        };
+
+        function showPopup(name, eta, severity, lat, lng) {
+            const popup = document.createElement('div');
+            popup.style.position = 'fixed';
+            popup.style.top = '50%';
+            popup.style.left = '50%';
+            popup.style.transform = 'translate(-50%, -50%)';
+            popup.style.backgroundColor = 'white';
+            popup.style.border = '2px solid black';
+            popup.style.borderRadius = '10px';
+            popup.style.padding = '20px';
+            popup.style.zIndex = '1000';
+            popup.style.textAlign = 'center';
+
+            popup.innerHTML = `
+                <h2>New Request</h2>
+                <p><strong>Name:</strong> ${name}</p>
+                <p><strong>ETA:</strong> ${eta}</p>
+                <p><strong>Severity:</strong> ${severity}</p>
+                <button id="acceptBtn">Accept</button>
+                <button id="denyBtn">Deny</button>
+            `;
+
+            document.body.appendChild(popup);
+
+            document.getElementById('acceptBtn').addEventListener('click', () => {
+                requests.push({ Name: name, ETA: eta, severity });
+                update();
+                L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
+                document.body.removeChild(popup);
+            });
+
+            document.getElementById('denyBtn').addEventListener('click', () => {
+                document.body.removeChild(popup);
+            });
+        }
+    </script>
+</body>
+</html>
