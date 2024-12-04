@@ -248,11 +248,11 @@
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
             if (toggle_val === 1) {
-                showPopup(data.name, data.eta, data.severity, data.lat, data.lng);
+                showPopup(data.name, data.eta, data.lat, data.lng);
             }
         };
 
-        function showPopup(name, eta, severity, lat, lng) {
+        function showPopup(name, eta, lat, lng) {
             const popup = document.createElement('div');
             popup.style.position = 'fixed';
             popup.style.top = '50%';
@@ -269,7 +269,6 @@
                 <h2>New Request</h2>
                 <p><strong>Name:</strong> ${name}</p>
                 <p><strong>ETA:</strong> ${eta}</p>
-                <p><strong>Severity:</strong> ${severity}</p>
                 <button id="acceptBtn">Accept</button>
                 <button id="denyBtn">Deny</button>
             `;
@@ -279,7 +278,7 @@
             document.getElementById('acceptBtn').addEventListener('click', () => {
                 requests.push({ Name: name, ETA: eta, severity });
                 update();
-                L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
+                L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b>).openPopup();
                 document.body.removeChild(popup);
             });
 
