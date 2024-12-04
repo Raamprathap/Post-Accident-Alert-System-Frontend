@@ -278,7 +278,7 @@
             document.getElementById('acceptBtn').addEventListener('click', () => {
                 requests.push({ Name: name, ETA: eta, severity });
                 update();
-                L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b>).openPopup();
+                L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b>`).openPopup();
                 document.body.removeChild(popup);
             });
 
