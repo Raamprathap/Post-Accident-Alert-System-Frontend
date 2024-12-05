@@ -198,15 +198,23 @@
     </div>
     <script>
         const requests = [];
+        const markers = []; // To store the markers added to the map
         const requestList = document.getElementById('list');
         const toggle = document.querySelector('.slider');
         let toggle_val = 0;
-
+    
         function removeRequest(index) {
+            // Remove the marker from the map
+            map.removeLayer(markers[index]);
+            markers.splice(index, 1); // Remove the marker from the markers array
+    
+            // Remove the request
             requests.splice(index, 1);
+    
+            // Update the request list
             update();
         }
-
+    
         function update() {
             if (toggle_val === 1) {
                 if (requests.length === 0) {
@@ -224,24 +232,24 @@
                 requestList.innerHTML = '<li><p>Not Accepting Requests</p></li>';
             }
         }
-
+    
         toggle.addEventListener("click", () => {
             toggle_val = toggle_val === 0 ? 1 : 0;
             update();
         });
-
+    
         var map = L.map('map').setView([11.0225, 76.9606], 13);
-
+    
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '© OpenStreetMap contributors'
         }).addTo(map);
-
+    
         var marker = L.marker([11.0225, 76.9606]).addTo(map);
         marker.bindPopup("<b>Ganga Hospital</b><br>&nbsp;&nbsp;&nbsp;Coimbatore.").openPopup();
-
+    
         update();
-
+    
         // WebSocket client connection
         function connectWebSocket() {
             const socket = new WebSocket('wss://sample-server-plq2.onrender.com');
@@ -249,27 +257,27 @@
             socket.onopen = () => {
                 console.log('WebSocket connection established.');
             };
-
+    
             socket.onmessage = (event) => {
                 const data = JSON.parse(event.data);
                 if (toggle_val === 1) {
                     showPopup(data.name, data.eta, data.severity, data.lat, data.lng);
                 }
             };
-
+    
             socket.onerror = (error) => {
                 console.error('WebSocket error: ', error);
             };
-
+    
             socket.onclose = () => {
                 console.log('WebSocket connection closed. Attempting to reconnect...');
                 setTimeout(connectWebSocket, 5000); // Reconnect after 5 seconds
             };
         }
-
+    
         // Initialize WebSocket connection
         connectWebSocket();
-
+    
         function showPopup(name, eta, severity, lat, lng) {
             const popup = document.createElement('div');
             popup.style.position = 'fixed';
@@ -282,7 +290,7 @@
             popup.style.padding = '20px';
             popup.style.zIndex = '1000';
             popup.style.textAlign = 'center';
-
+    
             popup.innerHTML = `
                 <h2>New Request</h2>
                 <p><strong>Name:</strong> ${name}</p>
@@ -291,16 +299,24 @@
                 <button id="acceptBtn">Accept</button>
                 <button id="denyBtn">Deny</button>
             `;
-
+    
             document.body.appendChild(popup);
-
+    
             document.getElementById('acceptBtn').addEventListener('click', () => {
+                // Add the request to the requests list
                 requests.push({ Name: name, ETA: eta, severity });
+    
+                // Add a marker to the map
+                const newMarker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
+                markers.push(newMarker); // Store the marker
+    
+                // Update the request list
                 update();
-                L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
+    
+                // Remove the popup
                 document.body.removeChild(popup);
             });
-
+    
             document.getElementById('denyBtn').addEventListener('click', () => {
                 document.body.removeChild(popup);
             });
