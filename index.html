@@ -243,12 +243,12 @@
         update();
 
         
-        const socket = new WebSocket('wss://sample-server-plq2.onrender.com');
+        const socket = new WebSocket('ws://sample-server-plq2.onrender.com');
 
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
             if (toggle_val === 1) {
-                showPopup(data.name, data.eta, data.severity, data.lat, data.lng);
+                showPopup(data.user_id, data.eta, data.severity, data.lat, data.lng);
             }
         };
 
