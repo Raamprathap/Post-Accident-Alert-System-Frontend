@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items:center;
+            min-height: 700px;
+            height: 700px;
+            width: 800px;
+            background-color:#081229;
+            background-position: center;
+        }
+
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .background-video video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
+        header{
+            position: fixed;
+            background-color: transparent;
+            backdrop-filter: blur(20px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 99;
+
+        }
+
+        .logo {
+            font-size: 2em;
+            color: white;
+            user-select: none;
+        }
+
+        .nav a {
+            position: relative;
+            top: -10px;
+            font-size: 1.1em;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 40px;
+
+        }
+
+        .nav a::after{
+            content:'';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 100%;
+            height: 3px;
+            background: white;
+            border-radius: 5px;
+            transform: scaleX(0);
+            transition: transform .5s;
+
+        }
+
+        .nav a:hover:after {
+            transform: scaleX(1);
+        }
+
+        .nav .btnlog {
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border: 2px solid #fff;
+            outline: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1em;
+            color: #fff;
+            font-weight: 500;
+            margin-left: 40px;
+            align-items: center;
+            justify-content: center;
+            transition: .5s;
+        }
+
+        .nav .btnlog img {
+            margin-top: 2px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .nav .btnlog:hover {
+            background: #fff;
+            color: #162938;
+        }
+        main{
+            position: absolute;
+            top: 50%;
+            left: 1%;
+            transform: translateY(-50%);
+            color: #fff;
+        }
+
+        main h1{
+            font-size: 50px;
+        }
+
+        main h1 span{
+            color: #ffffff;
+        }
+
+        main h6{
+            font-size: 30px;
+            color: #c1c1c1;
+        }
+    </style>
+</head>
+<body>
+    <div class="background-video">
+        <video autoplay loop muted playsinline>
+            <source src="assets/1900-151662242_small.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+    <header>
+        <h1 class="logo">ABCD</h1>
+        <nav class="nav">
+            <a href="index.html">Home</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+            <button class="btnlog"><img src="" id="user-image"></button>
+        </nav>
+    </header>
+    <main>
+        <h1>
+            Creating a future where<br>
+            every Car is <span>SMART</span> and<br>
+            every Driver is <span>SAFE</span><br>
+        </h1>
+        <h6>Empowering Your Car with smartness and safety!</h6>
+    </main>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+        console.log("Username received:", username);
+
+        const userImages = {
+            "user1": "assets/1.jpg",
+            "user2": "assets/2.jpg",
+        };
+
+        document.getElementById('user-image').src = userImages[username] || "assets/3.jpg";
+
+        document.querySelector('.btnlog').addEventListener('click', () => {
+            if (username) {
+                window.location.href = `client-dashboard.html?username=${encodeURIComponent(username)}`;
+            } else {
+                alert("Username is missing!");
+            }
+        });
+    </script>
+</body>
+</html>
