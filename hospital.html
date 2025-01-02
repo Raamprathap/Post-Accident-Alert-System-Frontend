@@ -201,7 +201,40 @@
         const requestList = document.getElementById('list');
         const toggle = document.querySelector('.slider');
         let toggle_val = 0;
-        let lmarker=0;
+        let lmarker = 0;
+
+        // Manage accident accepter with localStorage
+        function canAcceptAccident() {
+            const storedData = JSON.parse(localStorage.getItem("accidentAccepter"));
+            const currentTime = new Date().getTime();
+
+            if (!storedData) {
+                // If no data exists, initialize it
+                return true;
+            }
+
+            const { isAccepting, lastUpdated } = storedData;
+
+            if (!isAccepting && currentTime - lastUpdated < 24 * 60 * 60 * 1000) {
+                // If the function was used within the last 24 hours
+                return false;
+            } else {
+                // Reset the value to true if 24 hours have passed
+                return true;
+            }
+        }
+
+        function updateAccidentAccepterStatus(isAccepting) {
+            localStorage.setItem(
+                "accidentAccepter",
+                JSON.stringify({
+                    isAccepting,
+                    lastUpdated: new Date().getTime()
+                })
+            );
+        }
+
+        updateAccidentAccepterStatus(true); // Initialize accident accepter to true
 
         function removeRequest(index) {
             requests.splice(index, 1);
@@ -239,8 +272,8 @@
         console.log("Username received:", username);
 
         const userContent = {
-            "user1": {'name': "Ganga Hospital", 'lat': 11.0225, 'lng': 76.9606},
-            "Amrita Clinic": {'name': "Amrita Clinic", 'lat': 10.9017502, 'lng': 76.9011755},
+            "user1": { 'name': "Ganga Hospital", 'lat': 11.0225, 'lng': 76.9606 },
+            "Amrita Clinic": { 'name': "Amrita Clinic", 'lat': 10.9017502, 'lng': 76.9011755 },
         };
 
         var map = L.map('map').setView([userContent[username]['lat'], userContent[username]['lng']], 13);
@@ -255,7 +288,6 @@
 
         update();
 
-        
         const socket = new WebSocket('wss://sample-server-plq2.onrender.com');
 
         socket.onopen = () => {
@@ -284,8 +316,14 @@
                 const hospitalLng = userContent[username]['lng'];
 
                 if (hlat === hospitalLat && hlng === hospitalLng) {
-                    console.log('Matching location found. Showing popup.');
-                    showPopup(name, eta, severity, lat, lng);
+                    if (canAcceptAccident()) {
+                        console.log('Matching location found. Showing popup.');
+
+                        showPopup(name, eta, severity, lat, lng);
+                        updateAccidentAccepterStatus(false); // Set accident accepter to false
+                    } else {
+                        console.log('Accident accepter is currently disabled.');
+                    }
                 } else {
                     console.log('Location mismatch. Ignoring message.');
                 }
@@ -322,19 +360,19 @@
                 requests.push({ Name: name, ETA: eta, severity });
                 update();
                 lmarker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
-                
-                const message = JSON.stringify({ type: 'map_update',latt: lat,lngg: lng,user: username });
+
+                const message = JSON.stringify({ type: 'map_update', latt: lat, lngg: lng, user: username });
                 console.log('Message sent from hospital.html:', message);
                 socket.send(message);
-                
+
                 document.body.removeChild(popup);
             });
 
             document.getElementById('denyBtn').addEventListener('click', () => {
                 document.body.removeChild(popup);
             });
-            
         }
+
     </script>
 </body>
 </html>
