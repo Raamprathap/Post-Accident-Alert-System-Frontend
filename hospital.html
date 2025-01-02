@@ -308,7 +308,7 @@
                 update();
                 lmarker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
                 
-                const message = JSON.stringify({ type: 'map_update', lat, lng, username });
+                const message = JSON.stringify({ type: 'map_update',latt: lat,lngg: lng,user: username });
                 console.log('Message sent from hospital.html:', message);
                 socket.send(message);
                 
