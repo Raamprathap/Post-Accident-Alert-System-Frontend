@@ -203,38 +203,45 @@
         let toggle_val = 0;
         let lmarker = 0;
 
-        // Manage accident accepter with localStorage
-        function canAcceptAccident() {
-            const storedData = JSON.parse(localStorage.getItem("accidentAccepter"));
+        // Accident acceptance counters for each user
+        let accidentCounters = JSON.parse(localStorage.getItem("accidentCounters")) || {};
+
+        // Function to initialize or update the accident accepter for a specific user
+        function canAcceptAccident(user) {
             const currentTime = new Date().getTime();
 
-            if (!storedData) {
-                // If no data exists, initialize it
+            if (!accidentCounters[user]) {
+                // If user does not exist, initialize with true
+                accidentCounters[user] = { isAccepting: true, lastUpdated: currentTime };
+                saveAccidentCounters();
                 return true;
             }
 
-            const { isAccepting, lastUpdated } = storedData;
+            const { isAccepting, lastUpdated } = accidentCounters[user];
 
             if (!isAccepting && currentTime - lastUpdated < 24 * 60 * 60 * 1000) {
-                // If the function was used within the last 24 hours
+                // If the function was used within the last 24 hours for this user
                 return false;
-            } else {
+            } else if (!isAccepting && currentTime - lastUpdated >= 24 * 60 * 60 * 1000) {
                 // Reset the value to true if 24 hours have passed
+                accidentCounters[user].isAccepting = true;
+                accidentCounters[user].lastUpdated = currentTime;
+                saveAccidentCounters();
                 return true;
             }
+
+            return isAccepting;
         }
 
-        function updateAccidentAccepterStatus(isAccepting) {
-            localStorage.setItem(
-                "accidentAccepter",
-                JSON.stringify({
-                    isAccepting,
-                    lastUpdated: new Date().getTime()
-                })
-            );
+        function updateAccidentAccepterStatus(user, isAccepting) {
+            const currentTime = new Date().getTime();
+            accidentCounters[user] = { isAccepting, lastUpdated: currentTime };
+            saveAccidentCounters();
         }
 
-        updateAccidentAccepterStatus(true); // Initialize accident accepter to true
+        function saveAccidentCounters() {
+            localStorage.setItem("accidentCounters", JSON.stringify(accidentCounters));
+        }
 
         function removeRequest(index) {
             requests.splice(index, 1);
@@ -310,19 +317,19 @@
             const { type, lat, lng, hlat, hlng, name, eta, severity } = data;
 
             // Verify if the message is of type 'hospital_request'
-            if (type === "hospital_request") {
+            if (type === "hospital_request" && toggle_val === 1) {
                 // Check if the received hlat and hlng match the hospital's lat and lng
                 const hospitalLat = userContent[username]['lat'];
                 const hospitalLng = userContent[username]['lng'];
 
                 if (hlat === hospitalLat && hlng === hospitalLng) {
-                    if (canAcceptAccident()) {
+                    if (canAcceptAccident(name)) {
                         console.log('Matching location found. Showing popup.');
 
                         showPopup(name, eta, severity, lat, lng);
-                        updateAccidentAccepterStatus(false); // Set accident accepter to false
+                        updateAccidentAccepterStatus(name, false); // Set accident accepter to false for this user
                     } else {
-                        console.log('Accident accepter is currently disabled.');
+                        console.log('Accident accepter is currently disabled for user:', name);
                     }
                 } else {
                     console.log('Location mismatch. Ignoring message.');
@@ -372,6 +379,7 @@
                 document.body.removeChild(popup);
             });
         }
+
 
     </script>
 </body>
