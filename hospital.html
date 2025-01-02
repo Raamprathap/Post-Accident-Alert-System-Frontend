@@ -272,10 +272,25 @@
 
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
-            if (data.type === 'hospital_request' && toggle_val === 1) {
-                showPopup(data.user_id, data.eta, data.severity, data.lat, data.lng);
+            console.log('Message received in hospital.html:', data);
+
+            // Extract the relevant fields from the received message
+            const { type, lat, lng, hlat, hlng, name, eta, severity } = data;
+
+            // Verify if the message is of type 'hospital_request'
+            if (type === "hospital_request") {
+                // Check if the received hlat and hlng match the hospital's lat and lng
+                const hospitalLat = userContent[username]['lat'];
+                const hospitalLng = userContent[username]['lng'];
+
+                if (hlat === hospitalLat && hlng === hospitalLng) {
+                    console.log('Matching location found. Showing popup.');
+                    showPopup(name, eta, severity, lat, lng);
+                } else {
+                    console.log('Location mismatch. Ignoring message.');
+                }
             } else {
-                console.log('Message ignored in hospital.html:', data);
+                console.log('Ignoring message of type:', type);
             }
         };
 
