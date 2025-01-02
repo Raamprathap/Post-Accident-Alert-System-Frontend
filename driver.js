@@ -63,7 +63,7 @@ const dusername = urlParams.get('username');
 console.log("Username received:", dusername);
 
 const userContent = {
-    "user1": {'name': 'Prathap', 'hname': "Ganga Hospital"},
+    "user1": {'name': 'Raam', 'hname': "Ganga Hospital"},
     "user2": {'name': 'Prathap', 'hname': "Amrita Clinic"},
 };
 
