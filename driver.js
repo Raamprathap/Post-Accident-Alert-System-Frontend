@@ -67,7 +67,7 @@ const userContent = {
     "user2": {'name': 'Prathap', 'hname': "Amrita Clinic"},
 };
 
-document.querySelector(".hospital_name").innerHTML=`${userContent[dusername]['hname']}<br>${userContent[dusername]['hname']}`
+document.querySelector(".hospital_name").innerHTML=`${userContent[dusername]['name']}<br>${userContent[dusername]['hname']}`
 
 // Listen for incoming messages
 // socket.onmessage = (event) => {
