@@ -71,13 +71,14 @@ const userContent = {
 socket.onmessage = (event) => {
     console.log('Message received in map.html:', event.data);
     const data = JSON.parse(event.data);
-    const { lat, lng, username } = data;
+    const { type, lat, lng, username } = data;
 
-    // Update the map with the route to the received coordinates
-    if ( (lat && lng) && (username==userContent[dusername]['hname']) ){
+    // Process only messages of type 'map_update' and check username
+    if (type === 'map_update' && lat && lng && username === userContent[dusername]['hname']) {
+        console.log('Processing map update with coordinates:', lat, lng);
         getRouteToReceivedLocation(lat, lng);
     } else {
-        console.error('Invalid data received in map.html:', data);
+        console.error('Invalid data received in map.html or username mismatch:', data);
     }
 };
 

@@ -272,8 +272,10 @@
 
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
-            if (toggle_val === 1) {
+            if (data.type === 'hospital_request' && toggle_val === 1) {
                 showPopup(data.user_id, data.eta, data.severity, data.lat, data.lng);
+            } else {
+                console.log('Message ignored in hospital.html:', data);
             }
         };
 
@@ -306,7 +308,7 @@
                 update();
                 lmarker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
                 
-                const message = JSON.stringify({ lat, lng, username });
+                const message = JSON.stringify({ type: 'map_update', lat, lng, username });
                 socket.send(message);
                 
                 document.body.removeChild(popup);
