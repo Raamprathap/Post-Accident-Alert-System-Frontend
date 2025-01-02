@@ -68,26 +68,73 @@ const userContent = {
 };
 
 // Listen for incoming messages
-socket.onmessage = (event) => {
-    console.log('Message received in map.html:', event.data);
-    const data = JSON.parse(event.data);
-    const type = data.type;
-    const lat = data.latt;
-    const lng = data.lngg;
-    const username = data.user;
-    console.log(type);
-    console.log(username);
+// socket.onmessage = (event) => {
+//     console.log('Message received in map.html:', event.data);
+//     const data = JSON.parse(event.data);
+//     const type = data.type;
+//     const lat = data.latt;
+//     const lng = data.lngg;
+//     const username = data.user;
+//     console.log(type);
+//     console.log(username);
 
-    // Process only messages of type 'map_update' and check username
-    if (type === 'map_update' && lat && lng && username === userContent[dusername]['hname']) {
-        console.log('Processing map update with coordinates:', lat, lng);
-        getRouteToReceivedLocation(lat, lng);
-    } else if (type !== 'map_update') {
-        console.log(`Ignoring message of type '${type}' in map.html`);
-    } else {
-        console.error('Invalid data received in map.html or username mismatch:', data);
+//     // Process only messages of type 'map_update' and check username
+//     if (type === 'map_update' && lat && lng && username === userContent[dusername]['hname']) {
+//         console.log('Processing map update with coordinates:', lat, lng);
+//         getRouteToReceivedLocation(lat, lng);
+//     } else if (type !== 'map_update') {
+//         console.log(`Ignoring message of type '${type}' in map.html`);
+//     } else {
+//         console.error('Invalid data received in map.html or username mismatch:', data);
+//     }
+// };
+
+socket.onmessage = async (event) => {
+    // Handle Blob objects
+    if (event.data instanceof Blob) {
+        const text = await event.data.text(); // Convert Blob to text
+        console.log('Blob converted to text:', text);
+
+        try {
+            const data = JSON.parse(text); // Parse the text as JSON
+            console.log('Parsed JSON message:', data);
+
+            const { type, lat, lng, username } = data;
+
+            if (type === 'map_update' && lat && lng && username === userContent[dusername]['hname']) {
+                console.log('Processing map update with coordinates:', lat, lng);
+                getRouteToReceivedLocation(lat, lng);
+            } else if (type !== 'map_update') {
+                console.log(`Ignoring message of type '${type}' in map.html`);
+            } else {
+                console.error('Invalid data received in map.html or username mismatch:', data);
+            }
+        } catch (e) {
+            console.error('Blob could not be parsed as JSON:', text);
+        }
+        return;
+    }
+
+    // Handle non-Blob messages (already JSON)
+    try {
+        const data = JSON.parse(event.data);
+        console.log('Parsed JSON message:', data);
+
+        const { type, lat, lng, username } = data;
+
+        if (type === 'map_update' && lat && lng && username === userContent[dusername]['hname']) {
+            console.log('Processing map update with coordinates:', lat, lng);
+            getRouteToReceivedLocation(lat, lng);
+        } else if (type !== 'map_update') {
+            console.log(`Ignoring message of type '${type}' in map.html`);
+        } else {
+            console.error('Invalid data received in map.html or username mismatch:', data);
+        }
+    } catch (e) {
+        console.error('Invalid JSON message received:', event.data);
     }
 };
+
 
 
 function getRouteToReceivedLocation(lat, lng) {
