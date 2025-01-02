@@ -189,23 +189,23 @@
                 <table class="info-table">
                     <tr>
                         <th>Name</th>
-                        <td>John Doe</td>
+                        <td class="name">John Doe</td>
                     </tr>
                     <tr>
                         <th>Age</th>
-                        <td>30</td>
+                        <td class="age">30</td>
                     </tr>
                     <tr>
                         <th>Blood Group</th>
-                        <td>O+</td>
+                        <td class="bg">O+</td>
                     </tr>
                     <tr>
                         <th>Medical Conditions</th>
-                        <td>None</td>
+                        <td class="MC">None</td>
                     </tr>
                     <tr>
                         <th>Allergies</th>
-                        <td>Peanuts</td>
+                        <td class="Aller">Peanuts</td>
                     </tr>
                 </table>
             </div>
@@ -260,12 +260,18 @@
         console.log("Username received:", username);
 
         const userImages = {
-            "user1": "assets/1.jpg",
-            "user2": "assets/2.jpg",
+            "user1": {'img': "assets/1.jpg", 'name': "vishaal", 'age': 25, 'bg': "B+", 'MC': "None", 'Aller': "Peanuts"},
+            "user2": {'img': "assets/2.jpg", 'name': "Akhilesh", 'age': 57, 'bg': "A1+", 'MC': "None", 'Aller': "Banana"},
         };
 
-        document.getElementById('user-image').src = userImages[username] || "C:/Users/raamp/OneDrive/Desktop/Hello World/Birds/uploads/3.jpg";
-        document.getElementById('user-icon').src = userImages[username] || "C:/Users/raamp/OneDrive/Desktop/Hello World/Birds/uploads/3.jpg";
+        document.querySelector(".name").innerHTML=`${userImages[username]['name']}`;
+        document.querySelector(".age").innerHTML=`${userImages[username]['age']}`;
+        document.querySelector(".bg").innerHTML=`${userImages[username]['bg']}`;
+        document.querySelector(".MC").innerHTML=`${userImages[username]['MC']}`;
+        document.querySelector(".Aller").innerHTML=`${userImages[username]['Aller']}`;
+
+        document.getElementById('user-image').src = userImages[username][img] || "C:/Users/raamp/OneDrive/Desktop/Hello World/Birds/uploads/3.jpg";
+        document.getElementById('user-icon').src = userImages[username][img] || "C:/Users/raamp/OneDrive/Desktop/Hello World/Birds/uploads/3.jpg";
     </script>
 </body>
 </html>
