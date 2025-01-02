@@ -423,7 +423,6 @@ legend {
                         console.log('Matching location found. Showing popup.');
     
                         showPopup(name, eta, severity, lat, lng);
-                        updateAccidentAccepterStatus(name, false); // Set accident accepter to false for this user
                     } else {
                         console.log('Accident accepter is currently disabled for user:', name);
                     }
@@ -554,6 +553,7 @@ legend {
         }
 
         acceptBtn.onclick = () => {
+            updateAccidentAccepterStatus(name, false);
             const currentAmbulanceCount = parseInt(ambulanceCounterElement.textContent);
             if (currentAmbulanceCount > 0) {
                 ambulanceCounterElement.textContent = currentAmbulanceCount - 1;
