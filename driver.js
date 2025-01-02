@@ -47,11 +47,15 @@ function success(position) {
 const socket = new WebSocket('wss://sample-server-plq2.onrender.com');
 
 socket.onopen = () => {
-    console.log('WebSocket connection established in hospital.html');
+    console.log('WebSocket connection established in map.html');
 };
 
 socket.onerror = (error) => {
-    console.error('WebSocket error in hospital.html:', error);
+    console.error('WebSocket error in map.html:', error);
+};
+
+socket.onclose = () => {
+    console.warn('WebSocket connection closed in map.html');
 };
 
 const urlParams = new URLSearchParams(window.location.search);
