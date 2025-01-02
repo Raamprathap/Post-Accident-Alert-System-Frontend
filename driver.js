@@ -46,6 +46,14 @@ function success(position) {
 // Establish WebSocket connection
 const socket = new WebSocket('wss://sample-server-plq2.onrender.com');
 
+socket.onopen = () => {
+    console.log('WebSocket connection established in hospital.html');
+};
+
+socket.onerror = (error) => {
+    console.error('WebSocket error in hospital.html:', error);
+};
+
 const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
 console.log("Username received:", username);
