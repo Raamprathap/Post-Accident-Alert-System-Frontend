@@ -40,8 +40,53 @@ function success(position) {
     userMarker.bindPopup("You are here").openPopup();
 
     // Fetch nearest hospital
-    findNearestHospital(userLat, userLon);
+    //findNearestHospital(userLat, userLon);
 }
+
+// Establish WebSocket connection
+const socket = new WebSocket('wss://sample-server-plq2.onrender.com');
+
+const urlParams = new URLSearchParams(window.location.search);
+const username = urlParams.get('username');
+console.log("Username received:", username);
+
+const userContent = {
+    "user1": {'name': 'Prathap', 'hname': "Ganga Hospital"},
+    "user2": {'name': 'Prathap', 'hname': "Amrita Clinic"},
+};
+
+// Listen for incoming messages
+socket.onmessage = (event) => {
+    const data = JSON.parse(event.data);
+    const { lat, lng, husername } = data;
+
+    // Update the map with the route to the received coordinates
+    if ( (lat && lng) && (husername==userContent[username]['hname']) ){
+        getRouteToReceivedLocation(lat, lng);
+    }
+};
+
+function getRouteToReceivedLocation(lat, lng) {
+    const userLocation = userMarker.getLatLng(); // Current user location
+    const start = L.latLng(userLocation.lat, userLocation.lng);
+    const end = L.latLng(lat, lng);
+
+    // Remove existing route and control
+    if (routingControl) map.removeControl(routingControl);
+
+    routingControl = L.Routing.control({
+        waypoints: [start, end],
+        routeWhileDragging: true,
+        createMarker: () => null // No markers
+    }).addTo(map);
+
+    routingControl.on('routesfound', function (e) {
+        const route = e.routes[0];
+        const distance = route.summary.totalDistance / 1000; // Convert to km
+        document.getElementById('status').textContent = `Received location is ${distance.toFixed(2)} km away via road.`;
+    });
+}
+
 
 function error() {
     document.getElementById('status').textContent = 'Unable to retrieve your location.';
