@@ -285,18 +285,20 @@ legend {
         const requests = [];
         const requestList = document.getElementById('list');
         const toggle = document.querySelector('.slider');
-        const ambulanceCounter = document.querySelector('.ambulance h2');
-        const accidentCounter = document.querySelector('.accidents h2');
+        const ambulanceCounterElement = document.querySelector('.ambulance h2');
+        const accidentCounterElement = document.querySelector('.accidents h2');
         let toggle_val = 0;
         let lmarker = 0;
     
         // Accident acceptance counters for each user
         let accidentCounters = JSON.parse(localStorage.getItem("accidentCounters")) || {};
     
+        // Function to initialize or update the accident accepter for a specific user
         function canAcceptAccident(user) {
             const currentTime = new Date().getTime();
     
             if (!accidentCounters[user]) {
+                // If user does not exist, initialize with true
                 accidentCounters[user] = { isAccepting: true, lastUpdated: currentTime };
                 saveAccidentCounters();
                 return true;
@@ -305,8 +307,10 @@ legend {
             const { isAccepting, lastUpdated } = accidentCounters[user];
     
             if (!isAccepting && currentTime - lastUpdated < 24 * 60 * 60 * 1000) {
+                // If the function was used within the last 24 hours for this user
                 return false;
             } else if (!isAccepting && currentTime - lastUpdated >= 24 * 60 * 60 * 1000) {
+                // Reset the value to true if 24 hours have passed
                 accidentCounters[user].isAccepting = true;
                 accidentCounters[user].lastUpdated = currentTime;
                 saveAccidentCounters();
@@ -331,6 +335,11 @@ legend {
             if (lmarker) {
                 map.removeLayer(lmarker);
             }
+            
+            // Increase ambulance counter
+            const currentAmbulanceCount = parseInt(ambulanceCounterElement.textContent);
+            ambulanceCounterElement.textContent = currentAmbulanceCount + 1;
+    
             update();
         }
     
@@ -396,9 +405,12 @@ legend {
             const data = JSON.parse(event.data);
             console.log('Message received in hospital.html:', data);
     
+            // Extract the relevant fields from the received message
             const { type, lat, lng, hlat, hlng, name, eta, severity } = data;
     
+            // Verify if the message is of type 'hospital_request'
             if (type === "hospital_request" && toggle_val === 1) {
+                // Check if the received hlat and hlng match the hospital's lat and lng
                 const hospitalLat = userContent[username]['lat'];
                 const hospitalLng = userContent[username]['lng'];
     
@@ -406,11 +418,8 @@ legend {
                     if (canAcceptAccident(name)) {
                         console.log('Matching location found. Showing popup.');
     
-                        if (parseInt(ambulanceCounter.textContent) > 0) {
-                            showPopup(name, eta, severity, lat, lng);
-                        } else {
-                            console.warn('No ambulances available. Cannot accept requests.');
-                        }
+                        showPopup(name, eta, severity, lat, lng);
+                        updateAccidentAccepterStatus(name, false); // Set accident accepter to false for this user
                     } else {
                         console.log('Accident accepter is currently disabled for user:', name);
                     }
@@ -447,22 +456,22 @@ legend {
             document.body.appendChild(popup);
     
             document.getElementById('acceptBtn').addEventListener('click', () => {
-                const currentAmbulances = parseInt(ambulanceCounter.textContent);
+                const currentAmbulanceCount = parseInt(ambulanceCounterElement.textContent);
+                if (currentAmbulanceCount > 0) {
+                    ambulanceCounterElement.textContent = currentAmbulanceCount - 1;
     
-                if (currentAmbulances > 0) {
-                    ambulanceCounter.textContent = currentAmbulances - 1;
-                    accidentCounter.textContent = parseInt(accidentCounter.textContent) + 1;
-                    
+                    const currentAccidentCount = parseInt(accidentCounterElement.textContent);
+                    accidentCounterElement.textContent = currentAccidentCount + 1;
+    
                     requests.push({ Name: name, ETA: eta, severity });
                     update();
-    
                     lmarker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
     
                     const message = JSON.stringify({ type: 'map_update', latt: lat, lngg: lng, user: username });
                     console.log('Message sent from hospital.html:', message);
                     socket.send(message);
                 } else {
-                    console.warn('No ambulances available. Cannot accept request.');
+                    alert('No ambulances available to accept the request.');
                 }
     
                 document.body.removeChild(popup);
