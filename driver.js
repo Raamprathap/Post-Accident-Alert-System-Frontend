@@ -59,8 +59,8 @@ socket.onclose = () => {
 };
 
 const urlParams = new URLSearchParams(window.location.search);
-const username = urlParams.get('username');
-console.log("Username received:", username);
+const dusername = urlParams.get('username');
+console.log("Username received:", dusername);
 
 const userContent = {
     "user1": {'name': 'Prathap', 'hname': "Ganga Hospital"},
@@ -71,10 +71,10 @@ const userContent = {
 socket.onmessage = (event) => {
     console.log('Message received in map.html:', event.data);
     const data = JSON.parse(event.data);
-    const { lat, lng, husername } = data;
+    const { lat, lng, username } = data;
 
     // Update the map with the route to the received coordinates
-    if ( (lat && lng) && (husername==userContent[username]['hname']) ){
+    if ( (lat && lng) && (username==userContent[dusername]['hname']) ){
         getRouteToReceivedLocation(lat, lng);
     } else {
         console.error('Invalid data received in map.html:', data);
