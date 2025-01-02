@@ -149,6 +149,9 @@ function getRouteToReceivedLocation(lat, lng) {
     const start = L.latLng(userLocation.lat, userLocation.lng);
     const end = L.latLng(lat, lng);
 
+    userMarker = L.marker([lat, lng]).addTo(map);
+    userMarker.bindPopup(`${user}<br>Distance: ${(minDistance / 1000).toFixed(2)} km`).openPopup();
+
     // Remove existing route and control
     if (routingControl) map.removeControl(routingControl);
 
