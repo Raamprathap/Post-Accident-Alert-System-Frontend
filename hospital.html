@@ -56,6 +56,48 @@ body {
     width: 2em;
 }
 
+.user-icon {
+    position: relative;
+    cursor: pointer;
+}
+
+.user-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.dropdown {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transform: scale(0);
+    transform-origin: top right;
+    transition: transform 0.3s ease;
+    z-index: 10;
+}
+
+.dropdown.active {
+    transform: scale(1);
+}
+
+.dropdown a {
+    display: block;
+    padding: 10px 20px;
+    color: var(--primary);
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.dropdown a:hover {
+    background: var(--secondary);
+    color: white;
+}
+
 .content {
     display: flex;
     gap: 2rem;
@@ -248,9 +290,16 @@ legend {
 </head>
 <body>
     <div class="hospital">
-        <div class="navbar">
+        <nav class="navbar">
             <h1><img src="assets/logo.png" alt=""></h1>
-        </div> 
+            <div class="user-icon" onclick="toggleDropdown()">
+                <img src="assets/logo.png" alt="User">
+                <div class="dropdown" id="userDropdown">
+                    <a href="#" class="hospital_name">Hospital Name</a>
+                    <a href="#">Log Out</a>
+                </div>
+            </div>
+        </nav>
 
         <div class="content">
             <div id="map" class="map"></div>
@@ -378,6 +427,8 @@ legend {
             "Ganga Hospital": { 'name': "Ganga Hospital", 'lat': 11.0225, 'lng': 76.9606 },
             "Amrita Clinic": { 'name': "Amrita Clinic", 'lat': 10.9017502, 'lng': 76.9011755 },
         };
+
+        document.querySelector(".hospital_name").innerHTML=`${userContent[username]['name']}`
     
         var map = L.map('map').setView([userContent[username]['lat'], userContent[username]['lng']], 13);
     
