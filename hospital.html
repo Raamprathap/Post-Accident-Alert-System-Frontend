@@ -201,9 +201,13 @@
         const requestList = document.getElementById('list');
         const toggle = document.querySelector('.slider');
         let toggle_val = 0;
+        let lmarker=0;
 
         function removeRequest(index) {
             requests.splice(index, 1);
+            if (lmarker) {
+                map.removeLayer(lmarker);
+            }
             update();
         }
 
@@ -288,7 +292,7 @@
             document.getElementById('acceptBtn').addEventListener('click', () => {
                 requests.push({ Name: name, ETA: eta, severity });
                 update();
-                L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
+                lmarker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
                 
                 const message = JSON.stringify({ lat, lng, username });
                 socket.send(message);
