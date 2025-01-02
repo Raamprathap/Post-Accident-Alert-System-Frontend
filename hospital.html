@@ -252,7 +252,7 @@
         update();
 
         
-        const socket = new WebSocket('ws://sample-server-plq2.onrender.com');
+        const socket = new WebSocket('wss://sample-server-plq2.onrender.com');
 
         socket.onmessage = (event) => {
             const data = JSON.parse(event.data);
