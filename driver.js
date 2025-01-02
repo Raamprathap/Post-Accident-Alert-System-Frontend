@@ -71,12 +71,12 @@ const userContent = {
 // socket.onmessage = (event) => {
 //     console.log('Message received in map.html:', event.data);
 //     const data = JSON.parse(event.data);
-//     const type = data.type;
-//     const lat = data.latt;
-//     const lng = data.lngg;
-//     const username = data.user;
-//     console.log(type);
-//     console.log(username);
+    // const type = data.type;
+    // const lat = data.latt;
+    // const lng = data.lngg;
+    // const username = data.user;
+    // console.log(type);
+    // console.log(username);
 
 //     // Process only messages of type 'map_update' and check username
 //     if (type === 'map_update' && lat && lng && username === userContent[dusername]['hname']) {
@@ -99,7 +99,12 @@ socket.onmessage = async (event) => {
             const data = JSON.parse(text); // Parse the text as JSON
             console.log('Parsed JSON message:', data);
 
-            const { type, lat, lng, username } = data;
+            const type = data.type;
+            const lat = data.latt;
+            const lng = data.lngg;
+            const username = data.user;
+            console.log(type);
+            console.log(username);
 
             if (type === 'map_update' && lat && lng && username === userContent[dusername]['hname']) {
                 console.log('Processing map update with coordinates:', lat, lng);
