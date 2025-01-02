@@ -310,7 +310,7 @@ legend {
     
             const { isAccepting, lastUpdated } = accidentCounters[user];
     
-            if (!isAccepting && currentTime - lastUpdated < 24 * 60 * 60 * 1000) {
+            if (!isAccepting && currentTime - lastUpdated < 2 * 60 * 1000) {
                 // If the function was used within the last 24 hours for this user
                 return false;
             } else if (!isAccepting && currentTime - lastUpdated >= 24 * 60 * 60 * 1000) {
