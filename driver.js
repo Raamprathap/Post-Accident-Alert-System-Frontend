@@ -77,10 +77,13 @@ socket.onmessage = (event) => {
     if (type === 'map_update' && lat && lng && username === userContent[dusername]['hname']) {
         console.log('Processing map update with coordinates:', lat, lng);
         getRouteToReceivedLocation(lat, lng);
+    } else if (type !== 'map_update') {
+        console.log(`Ignoring message of type '${type}' in map.html`);
     } else {
         console.error('Invalid data received in map.html or username mismatch:', data);
     }
 };
+
 
 function getRouteToReceivedLocation(lat, lng) {
     const userLocation = userMarker.getLatLng(); // Current user location
