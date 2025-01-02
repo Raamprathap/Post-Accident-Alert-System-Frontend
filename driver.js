@@ -68,7 +68,7 @@ const userContent = {
 };
 
 document.querySelector(".hospital_name").innerHTML=`${userContent[dusername]['name']}<br>${userContent[dusername]['hname']}`
-document.querySelector(".hospital_name").innerHTML=`${userContent[username]['name']}`
+
 // Listen for incoming messages
 // socket.onmessage = (event) => {
 //     console.log('Message received in map.html:', event.data);

@@ -33,23 +33,26 @@ body {
 }
 
 .navbar {
-    position: relative;
-    background-color: #282d32;
-    height: 70px;
-    width: 100%;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    padding: 0 2rem;
-    transition: all 0.3s ease;
+    background-color: #282d32;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
 }
 
 .navbar h1 {
     color: white;
-    margin: 0;
     font-size: 2rem;
     letter-spacing: 2px;
     text-transform: uppercase;
+    margin: 0;
 }
 
 .navbar h1 img {
@@ -427,6 +430,7 @@ legend {
             "Ganga Hospital": { 'name': "Ganga Hospital", 'lat': 11.0225, 'lng': 76.9606 },
             "Amrita Clinic": { 'name': "Amrita Clinic", 'lat': 10.9017502, 'lng': 76.9011755 },
         };
+        document.querySelector(".hospital_name").innerHTML=`${userContent[username]['name']}`
     
         var map = L.map('map').setView([userContent[username]['lat'], userContent[username]['lng']], 13);
     
