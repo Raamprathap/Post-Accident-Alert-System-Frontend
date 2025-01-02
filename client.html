@@ -50,12 +50,11 @@
 
         header{
             position: fixed;
-            background-color: transparent;
-            backdrop-filter: blur(20px);
+            background-color: #282d32;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 20px 100px;
+            padding: 5px 100px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -64,9 +63,12 @@
         }
 
         .logo {
-            font-size: 2em;
             color: white;
             user-select: none;
+        }
+
+        .logo img{
+            width: 2em;
         }
 
         .nav a {
@@ -157,7 +159,7 @@
     </div>
 
     <header>
-        <h1 class="logo">ABCD</h1>
+        <h1 class="logo"><img src="assets/logo.png" alt=""></h1>
         <nav class="nav">
             <a href="index.html">Home</a>
             <a href="#">About</a>
