@@ -30,6 +30,9 @@
         }
 
         .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             background-color: #282d32;
             padding: 1rem 2rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
@@ -51,6 +54,48 @@
 
         .navbar h1 img {
             width: 2em;
+        }
+
+        .user-icon {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .user-icon img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .dropdown {
+            position: absolute;
+            top: 50px;
+            right: 0;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transform: scale(0);
+            transform-origin: top right;
+            transition: transform 0.3s ease;
+            z-index: 10;
+        }
+
+        .dropdown.active {
+            transform: scale(1);
+        }
+
+        .dropdown a {
+            display: block;
+            padding: 10px 20px;
+            color: var(--primary);
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .dropdown a:hover {
+            background: var(--secondary);
+            color: white;
         }
 
         .container {
@@ -169,6 +214,13 @@
 <body>
     <nav class="navbar">
         <h1><img src="assets/logo.png" alt=""></h1>
+        <div class="user-icon" onclick="toggleDropdown()">
+            <img src="assets/logo.png" alt="User">
+            <div class="dropdown" id="userDropdown">
+                <a href="#" class="hospital_name">Hospital Name</a>
+                <a href="#">Log Out</a>
+            </div>
+        </div>
     </nav>
 
     <div class="container">
@@ -183,5 +235,11 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.js"></script>
     <script src="driver.js"></script>
+    <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>

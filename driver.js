@@ -63,9 +63,11 @@ const dusername = urlParams.get('username');
 console.log("Username received:", dusername);
 
 const userContent = {
-    "user1": {'name': 'Prathap', 'hname': "user1"},
+    "user1": {'name': 'Prathap', 'hname': "Ganga Hospital"},
     "user2": {'name': 'Prathap', 'hname': "Amrita Clinic"},
 };
+
+document.querySelector(".hospital_name").innerHTML=`${userContent[dusername][hname]}<br>${userContent[dusername][hname]}`
 
 // Listen for incoming messages
 // socket.onmessage = (event) => {
