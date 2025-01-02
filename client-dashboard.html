@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
     <style>
+        :root {
+            --primary: #2C3E50;
+            --secondary: #3498DB;
+            --accent: #E74C3C;
+            --background: #ECF0F1;
+            --text: #2C3E50;
+            --success: #27AE60;
+            --card-bg: #FFFFFF;
+        }
         * {
             margin: 0;
             padding: 0;
@@ -39,7 +48,7 @@
             width: 2em;
         }
 
-        .nav a {
+        .nav .a {
             position: relative;
             top: -10px;
             font-size: 1.1em;
@@ -50,7 +59,7 @@
 
         }
 
-        .nav a::after{
+        .nav .a::after{
             content:'';
             position: absolute;
             left: 0;
@@ -64,7 +73,7 @@
 
         }
 
-        .nav a:hover:after {
+        .nav .a:hover:after {
             transform: scaleX(1);
         }
 
@@ -92,6 +101,38 @@
         .nav .btnlog:hover {
             background: #fff;
         }
+
+.dropdown {
+    position: absolute;
+    top: 50px;
+    right: 100px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+    transform: scale(0);
+    transform-origin: top right;
+    transition: transform 0.3s ease;
+    z-index: 10;
+}
+
+.dropdown.active {
+    transform: scale(1);
+}
+
+.dropdown a {
+    display: block;
+    left: -20px;
+    padding: 20px 20px;
+    color: var(--primary);
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.dropdown a:hover {
+    background: var(--secondary);
+    color: white;
+}
 
         .container {
             display: flex;
@@ -170,10 +211,14 @@
     <header>
         <h1 class="logo"><img src="assets/logo.png" alt=""></h1>
         <nav class="nav">
-            <a href="client.html">Home</a>
-            <a href="#">About</a>
-            <a href="#">Services</a>
-            <button class="btnlog"><img src="assets/1.jpg" id="user-icon"></button>
+            <a href="client.html" class="a">Home</a>
+            <a href="#" class="a">About</a>
+            <a href="#" class="a">Services</a>
+            <button class="btnlog" onclick="toggleDropdown()"><img src="assets/1.jpg" id="user-icon"></button>
+            <div class="dropdown" id="userDropdown">
+                <a href="#" class="User_name">User Name</a>
+                <a href="signin.html?role=client">Log Out</a>
+            </div>
         </nav>
     </header>
 
@@ -239,6 +284,10 @@
     </div>
 
     <script>
+        function toggleDropdown() {
+            const dropdown = document.getElementById('userDropdown');
+            dropdown.classList.toggle('active');
+        }
         document.querySelectorAll('.nav-item').forEach(item => {
             item.addEventListener('click', () => {
                 // Update navigation active state
@@ -263,6 +312,8 @@
             "user1": {'img': "assets/1.jpg", 'name': "vishaal", 'age': 25, 'bg': "B+", 'MC': "None", 'Aller': "Peanuts"},
             "user2": {'img': "assets/2.jpg", 'name': "Akhilesh", 'age': 57, 'bg': "A1+", 'MC': "None", 'Aller': "Banana"},
         };
+
+        document.querySelector(".User_name").innerHTML=`${userContent[username]['name']}`
 
         document.querySelector(".name").innerHTML=`${userImages[username]['name']}`;
         document.querySelector(".age").innerHTML=`${userImages[username]['age']}`;
