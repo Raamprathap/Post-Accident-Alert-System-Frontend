@@ -105,6 +105,8 @@ socket.onmessage = async (event) => {
             const username = data.user;
             console.log(type);
             console.log(username);
+            console.log(lat);
+            console.log(lng);
 
             if (type === 'map_update' && lat && lng && username === userContent[dusername]['hname']) {
                 console.log('Processing map update with coordinates:', lat, lng);
