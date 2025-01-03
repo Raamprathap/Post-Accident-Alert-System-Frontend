@@ -362,10 +362,10 @@ legend {
     
             const { isAccepting, lastUpdated } = accidentCounters[user];
     
-            if (!isAccepting && currentTime - lastUpdated < 2 * 60 * 1000) {
+            if (!isAccepting && currentTime - lastUpdated < 1 * 60 * 1000) {
                 // If the function was used within the last 24 hours for this user
                 return false;
-            } else if (!isAccepting && currentTime - lastUpdated >= 2 * 60 * 1000) {
+            } else if (!isAccepting && currentTime - lastUpdated >= 1 * 60 * 1000) {
                 // Reset the value to true if 24 hours have passed
                 accidentCounters[user].isAccepting = true;
                 accidentCounters[user].lastUpdated = currentTime;
