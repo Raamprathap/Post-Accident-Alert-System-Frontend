@@ -364,14 +364,12 @@ legend {
     
             if (!isAccepting && currentTime - lastUpdated < 2 * 60 * 60 * 1000) {
                 // If the function was used within the last 24 hours for this user
-                console.log("less");
                 return false;
             } else if (!isAccepting && currentTime - lastUpdated >= 2 * 60 * 60 * 1000) {
                 // Reset the value to true if 24 hours have passed
                 accidentCounters[user].isAccepting = true;
                 accidentCounters[user].lastUpdated = currentTime;
                 saveAccidentCounters();
-                console.log("More");
                 return true;
             }
     
@@ -490,6 +488,7 @@ legend {
         };
     
         function showPopup(name, eta, severity, lat, lng) {
+            updateAccidentAccepterStatus(name, false);
         // Create overlay
         const overlay = document.createElement('div');
         overlay.style.cssText = `
