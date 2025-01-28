@@ -459,7 +459,7 @@ legend {
         };
 
         let p_name=null;
-    
+        let inp_data = null;
         socket.onmessage = async (event) => {
             let data;
             // Check if the event data is a Blob
@@ -469,6 +469,7 @@ legend {
             } else {
                 data = JSON.parse(event.data); // Parse directly if it's not a Blob
             }
+            inp_data = data;
             console.log('Message received in hospital.html:', data);
     
             // Extract the relevant fields from the received message
@@ -615,7 +616,7 @@ legend {
             denyBtn.style.backgroundColor = 'transparent';
             denyBtn.style.color = '#E74C3C';
         };
-
+    }
         // Handle buttons
         function closePopup() {
             popup.style.transform = 'translate(-50%, -50%) scale(0.7)';
@@ -645,8 +646,15 @@ legend {
             closePopup();
         };
 
-        denyBtn.onclick = closePopup;
-    }
+        denyBtn.onclick = () => {
+            inp_data.type = 'Deny_request'
+            const message = JSON.stringify(inp_data);
+            socket.send(message);
+            toggle_val = toggle_val === 0 ? 1 : 0;
+            update();
+            closePopup();
+        };
+
     function toggleDropdown() {
         const dropdown = document.getElementById('userDropdown');
         dropdown.classList.toggle('active');
