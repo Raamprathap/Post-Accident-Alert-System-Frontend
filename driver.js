@@ -91,6 +91,8 @@ document.querySelector(".hospital_name").innerHTML=`${userContent[dusername]['na
 //     }
 // };
 
+let socket_name = null;
+
 socket.onmessage = async (event) => {
     // Handle Blob objects
     if (event.data instanceof Blob) {
@@ -105,6 +107,7 @@ socket.onmessage = async (event) => {
             const lat = data.latt;
             const lng = data.lngg;
             const username = data.user;
+            socket_name = data.user;
             console.log(type);
             console.log(username);
             console.log(lat);
@@ -146,7 +149,7 @@ socket.onmessage = async (event) => {
 
 document.querySelector('.location-refresh-btn').addEventListener('click', function () {
     document.getElementById('status').textContent = 'Fetching your current location...';
-    const message = JSON.stringify({ type: 'hospital_update', latt: data.lat, lngg: lng, hlat: lat, hlngg: lngg, user: username });
+    const message = JSON.stringify({ type: 'hospital_update', latt: 0, lngg: 0, hlat: 0, hlngg: 0, user: socket_name });
     socket.send(message);
     getUserLocation();
 });
