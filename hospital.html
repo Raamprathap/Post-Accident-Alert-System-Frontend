@@ -497,7 +497,7 @@ legend {
                 console.log('Processing hospital_update with requestList:', requestList);
                 requests.forEach((request, index) => {
                     console.log('Comparing request.Name:', request.Name, 'with name:', data.user);
-                    if (request.Name === name) {
+                    if (request.Name === data.user) {
                         console.log('Match found. Removing request at index:', index);
                         removeRequest(index);
                     }
