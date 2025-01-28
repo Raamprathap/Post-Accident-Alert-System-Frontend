@@ -489,15 +489,19 @@ legend {
                 } else {
                     console.log('Location mismatch. Ignoring message.');
                 }
-            }else if (type === "hospital_update" && requestList.length > 0){
+            }else if (type === "hospital_update" && requestList.length > 0) {
+                console.log('Processing hospital_update with requestList:', requestList);
                 requests.forEach((request, index) => {
-                    if (request.Name === name){
+                    console.log('Comparing request.Name:', request.Name, 'with name:', name);
+                    if (request.Name === name) {
+                        console.log('Match found. Removing request at index:', index);
                         removeRequest(index);
                     }
                 });
             } else {
                 console.log('Ignoring message of type:', type);
             }
+
         };
     
         function showPopup(name, eta, severity, lat, lng) {
