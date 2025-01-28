@@ -458,8 +458,15 @@ legend {
             console.warn('WebSocket connection closed in hospital.html');
         };
     
-        socket.onmessage = (event) => {
-            const data = JSON.parse(event.data);
+        socket.onmessage = async (event) => {
+            let data;
+            // Check if the event data is a Blob
+            if (event.data instanceof Blob) {
+                const text = await event.data.text(); // Convert Blob to text
+                data = JSON.parse(text); // Parse the text as JSON
+            } else {
+                data = JSON.parse(event.data); // Parse directly if it's not a Blob
+            }
             console.log('Message received in hospital.html:', data);
     
             // Extract the relevant fields from the received message
