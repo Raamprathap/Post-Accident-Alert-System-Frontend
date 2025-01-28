@@ -90,6 +90,7 @@ document.querySelector(".hospital_name").innerHTML=`${userContent[dusername]['na
 //         console.error('Invalid data received in map.html or username mismatch:', data);
 //     }
 // };
+let p_name = null;
 
 socket.onmessage = async (event) => {
     // Handle Blob objects
@@ -109,6 +110,7 @@ socket.onmessage = async (event) => {
             console.log(username);
             console.log(lat);
             console.log(lng);
+            p_name = data.pname;
 
             if (type === 'map_update' && lat && lng && username === userContent[dusername]['hname']) {
                 console.log('Processing map update with coordinates:', lat, lng);
@@ -129,7 +131,9 @@ socket.onmessage = async (event) => {
         const data = JSON.parse(event.data);
         console.log('Parsed JSON message:', data);
 
-        const { type, lat, lng, username } = data;
+        const { type, lat, lng, username, pname } = data;
+
+        p_name = pname;
 
         if (type === 'map_update' && lat && lng && username === userContent[dusername]['hname']) {
             console.log('Processing map update with coordinates:', lat, lng);
@@ -146,7 +150,7 @@ socket.onmessage = async (event) => {
 
 document.querySelector('.location-refresh-btn').addEventListener('click', function () {
     document.getElementById('status').textContent = 'Fetching your current location...';
-    const data = { type: "hospital_update", latt: "", lngg: "", hlat: "", hlngg: "", user: userContent[dusername]['name']};
+    const data = { type: "hospital_update", latt: "", lngg: "", hlat: "", hlngg: "", user: p_name, eta: "", severity: ""};
     console.log(data);
     const message = JSON.stringify(data);
     socket.send(message);

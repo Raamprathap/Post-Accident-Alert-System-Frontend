@@ -457,6 +457,8 @@ legend {
         socket.onclose = () => {
             console.warn('WebSocket connection closed in hospital.html');
         };
+
+        let p_name=null;
     
         socket.onmessage = async (event) => {
             let data;
@@ -477,6 +479,8 @@ legend {
                 // Check if the received hlat and hlng match the hospital's lat and lng
                 const hospitalLat = userContent[username]['lat'];
                 const hospitalLng = userContent[username]['lng'];
+
+                p_name = name;
     
                 if (hlat === hospitalLat && hlng === hospitalLng) {
                     if (canAcceptAccident(name)) {
@@ -633,7 +637,7 @@ legend {
                 requests.push({ Name: name, ETA: eta, severity });
                 update();
                 lmarker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
-                const message = JSON.stringify({ type: 'map_update', latt: lat, lngg: lng, user: username });
+                const message = JSON.stringify({ type: 'map_update', latt: lat, lngg: lng, user: username, pname: p_name });
                 socket.send(message);
             } else {
                 alert('No ambulances available.');
