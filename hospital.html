@@ -496,7 +496,7 @@ legend {
             }else if (type === "hospital_update") {
                 console.log('Processing hospital_update with requestList:', requestList);
                 requests.forEach((request, index) => {
-                    console.log('Comparing request.Name:', request.Name, 'with name:', name);
+                    console.log('Comparing request.Name:', request.Name, 'with name:', data.user);
                     if (request.Name === name) {
                         console.log('Match found. Removing request at index:', index);
                         removeRequest(index);
