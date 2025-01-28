@@ -149,7 +149,9 @@ socket.onmessage = async (event) => {
 
 document.querySelector('.location-refresh-btn').addEventListener('click', function () {
     document.getElementById('status').textContent = 'Fetching your current location...';
-    const message = JSON.stringify({ type: 'hospital_update', latt: "", lngg: "", hlat: "", hlngg: "", user: socket_name });
+    const data = { type: "hospital_update", latt: "", lngg: "", hlat: "", hlngg: "", user: socket_name };
+    console.log(data);
+    const message = JSON.stringify(data);
     socket.send(message);
     getUserLocation();
 });
