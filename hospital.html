@@ -587,7 +587,7 @@ legend {
         `;
 
         document.body.appendChild(popup);
-
+        }
         // Animate in
         requestAnimationFrame(() => {
             overlay.style.opacity = '1';
@@ -616,7 +616,7 @@ legend {
             denyBtn.style.backgroundColor = 'transparent';
             denyBtn.style.color = '#E74C3C';
         };
-    }
+
         // Handle buttons
         function closePopup() {
             popup.style.transform = 'translate(-50%, -50%) scale(0.7)';
