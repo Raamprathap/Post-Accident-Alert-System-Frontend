@@ -416,6 +416,7 @@ legend {
                 requestList.innerHTML = '<li><p>Not Accepting Requests</p></li>';
             }
         }
+        toggle.click();
     
         toggle.addEventListener("click", () => {
             toggle_val = toggle_val === 0 ? 1 : 0;
@@ -648,6 +649,7 @@ legend {
 
         denyBtn.onclick = async () => {
             inp_data.type = 'Deny_request';
+            console.log(inp_data);
             try {
                 const response = await fetch('/signal', {
                     method: 'POST',
