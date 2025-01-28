@@ -144,6 +144,12 @@ socket.onmessage = async (event) => {
     }
 };
 
+document.querySelector('.location-refresh-btn').addEventListener('click', function () {
+    document.getElementById('status').textContent = 'Fetching your current location...';
+    const message = JSON.stringify({ type: 'hospital_update', latt: data.lat, lngg: lng, hlat: lat, hlngg: lngg, user: username });
+    socket.send(message);
+    getUserLocation();
+});
 
 
 function getRouteToReceivedLocation(lat, lng) {
@@ -231,15 +237,6 @@ function getRoute(userLat, userLon, hospitalLat, hospitalLon) {
         document.getElementById('status').textContent = `Nearest hospital is ${roadDistance.toFixed(2)} km away via road.`;
     });
 }
-
-
-// Refresh button functionality
-document.querySelector('.location-refresh-btn').addEventListener('click', function () {
-    document.getElementById('status').textContent = 'Fetching your current location...';
-    const message = JSON.stringify({ type: 'hospital_update', latt: lat, lngg: lng, hlat: lat, hlngg: lngg, user: username });
-    socket.send(message);
-    getUserLocation();
-});
 
 // Initial call to get user location when page loads
 getUserLocation();
