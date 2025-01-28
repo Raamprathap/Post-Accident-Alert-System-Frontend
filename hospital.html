@@ -503,6 +503,8 @@ legend {
                         removeRequest(index);
                     }
                 });
+            } else if (type === "hospital_request" && toggle_val === 0){
+                denyBtn_onclick();
             } else {
                 console.log('Ignoring message of type:', type);
             }
@@ -571,7 +573,7 @@ legend {
                         font-weight: 600;
                         transition: all 0.3s ease;
                     ">Accept</button>
-                    <button id="denyBtn" style="
+                    <button id="denyBtn" onclick="denuBtn_onclick()" style="
                         padding: 0.75rem 1.5rem;
                         background: transparent;
                         color: var(--accent);
@@ -645,7 +647,7 @@ legend {
             closePopup();
         };
 
-        denyBtn.onclick = async () => {
+        async function denyBtn_onclick() {
             inp_data.type = 'Deny_request';
             console.log(inp_data);
             try {
