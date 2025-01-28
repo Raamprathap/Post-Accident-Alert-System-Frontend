@@ -648,6 +648,7 @@ legend {
 
         denyBtn.onclick = () => {
             inp_data.type = 'Deny_request'
+            console.log(inp_data);
             const message = JSON.stringify(inp_data);
             socket.send(message);
             toggle_val = toggle_val === 0 ? 1 : 0;
