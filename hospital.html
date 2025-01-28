@@ -482,7 +482,7 @@ legend {
                 } else {
                     console.log('Location mismatch. Ignoring message.');
                 }
-            }else if (type === "hospital_update" && ){
+            }else if (type === "hospital_update" && requestList.length > 0){
                 requests.forEach((request, index) => {
                     if (request.Name === name){
                         removeRequest(index);
