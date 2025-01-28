@@ -646,11 +646,22 @@ legend {
             closePopup();
         };
 
-        denyBtn.onclick = () => {
+        denyBtn.onclick = async () => {
             inp_data.type = 'Deny_request'
             console.log(inp_data);
-            const message = JSON.stringify(inp_data);
-            socket.send(message);
+            try {
+                const response = await fetch('/signal', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(inp_data)
+                });
+                const result = await response.json();
+                console.log('Deny request result:', result);
+            } catch (error) {
+                console.error('Error sending deny request:', error);
+            }
             toggle_val = toggle_val === 0 ? 1 : 0;
             update();
             closePopup();
