@@ -647,8 +647,7 @@ legend {
         };
 
         denyBtn.onclick = async () => {
-            inp_data.type = 'Deny_request'
-            console.log(inp_data);
+            inp_data.type = 'Deny_request';
             try {
                 const response = await fetch('/signal', {
                     method: 'POST',
@@ -657,8 +656,14 @@ legend {
                     },
                     body: JSON.stringify(inp_data)
                 });
-                const result = await response.json();
-                console.log('Deny request result:', result);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                // Only try to parse JSON if we have content
+                if (response.headers.get("content-length") !== "0") {
+                    const result = await response.json();
+                    console.log('Deny request result:', result);
+                }
             } catch (error) {
                 console.error('Error sending deny request:', error);
             }
