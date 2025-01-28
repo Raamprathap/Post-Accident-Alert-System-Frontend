@@ -236,6 +236,8 @@ function getRoute(userLat, userLon, hospitalLat, hospitalLon) {
 // Refresh button functionality
 document.querySelector('.location-refresh-btn').addEventListener('click', function () {
     document.getElementById('status').textContent = 'Fetching your current location...';
+    const message = JSON.stringify({ type: 'hospital_update', latt: lat, lngg: lng, hlat: lat, hlngg: lngg, user: username });
+    socket.send(message);
     getUserLocation();
 });
 
