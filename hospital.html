@@ -489,7 +489,7 @@ legend {
                 } else {
                     console.log('Location mismatch. Ignoring message.');
                 }
-            }else if (type === "hospital_update" && requestList.length > 0) {
+            }else if (type === "hospital_update") {
                 console.log('Processing hospital_update with requestList:', requestList);
                 requests.forEach((request, index) => {
                     console.log('Comparing request.Name:', request.Name, 'with name:', name);
