@@ -5,191 +5,304 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pass</title>
     <style>
-        *{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background:#111;
-            overflow: hidden;
-        }
-        .background-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-        .background-video video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-        }
-        .container
-        {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: center;
-            gap: 100px 50px;
-            padding: 180px 50px;
-        }
-        .container .card    
-        {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            width: 350px;
-            height: 300px;
-            background: transparent;
-            backdrop-filter: blur(20px);
-            border-radius: 20px;
-            box-shadow: 0 35px 80px rgba(0,0,0,0.15);
-            transition: 0.5s;
-        }
-        .container .card:hover
-        {
-        height: 400px;
-        }
-        .container .card .imgbx
-        {
-            position: absolute;
-            top: 20px;
-            border-radius: 50%;
-            width: 200px;
-            background: #333;
-            overflow: hidden;
-            transition: 0.5s;
-        }
 
-        .container .card:hover .imgbx
-        {
-            top: -100px;
-            scale: 0.75;
-            color: #fff;
-            box-shadow: 0 15px 45px rgba(0,0,0,0.2);
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: 'Roboto', 'Arial', sans-serif;
+    }
+    
+    body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        /* background: linear-gradient(45deg, #003459, #00171f); */
+        background: linear-gradient(135deg, #3a86ff, #007f5f); 
+        position: relative;
+        overflow: hidden;
+    }
+
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: stretch;
+        max-width: 1200px;
+        width: 100%;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .title-div{
+        position: fixed;
+        top: 70px;
+        display: flex;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .title {
+        font-size: 2rem;
+        color: #fff;
+        text-align: center;
+        z-index: 10;
+    }
+    
+    /* Animated background */
+    body::before {
+        content: '';
+        position: absolute;
+        width: 150%;
+        height: 150%;
+        background: repeating-linear-gradient(
+            transparent,
+            transparent 50px,
+            rgba(0, 102, 150, 0.05) 50px,
+            rgba(0, 102, 150, 0.05) 51px
+            /* rgba(0, 102, 204, 0.05) 50px,
+            rgba(0, 102, 204, 0.05) 51px */
+    ),
+    repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 50px,
+        /* rgba(0, 102, 204, 0.05) 50px,
+        rgba(0, 102, 204, 0.05) 51px */
+        rgba(0, 204, 150, 0.05) 50px,
+        rgba(0, 204, 150, 0.05) 51px
+    );
+        animation: move 15s linear infinite;
+        z-index: 1;
+    }
+    
+    @keyframes move {
+        0% {
+            transform: translate(-50px, -50px);
+        }
+        100% {
+            transform: translate(50px, 50px);
+        }
+    }
+    
+    .container {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 25px;
+        padding: 25px;
+    }
+    
+    .container .card {
+        height: 200px;
+        width: 350px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        padding: 20px;
+        text-align: center;
+        transition: all 0.6s ease-in-out;
+        overflow: hidden;
+        transform: translateY(0);
+    }
+    
+    .container .card:hover {
+        height: max-content;
+        /* background: rgba(255, 255, 255, 0.2); */
+        background: rgba(0, 128, 128, 0.3);
+        transform: translateY(-5px) scale(1.03);
+        /* box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2); */
+        box-shadow: 0 15px 35px rgba(0, 150, 150, 0.5);
+    }
+    
+    .container .card .imgbx {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 15px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        padding: 15px;
+        transition: all 0.6s ease-in-out;
+    }
+    
+    .container .card:hover .imgbx {
+        /* background: rgba(0, 150, 199, 0.8); */
+        background: rgba(0, 172, 193, 0.9);
+        transform: scale(1.2);
+        box-shadow: 0 5px 15px rgba(0, 150, 199, 0.4);
+    }
+    
+    .container .card .imgbx svg {
+        width: 100%;
+        height: 100%;
+        fill: #fff;
+        transition: transform 0.6s ease-in-out;
+    }
+    
+    .container .card:hover .imgbx svg {
+        transform: rotate(360deg);
+    }
+    
+    .container .card .content {
+        padding: 0 10px;
+    }
+    
+    .container .card .content h2 {
+        color: #fff;
+        font-size: 1.4em;
+        margin-bottom: 15px;
+        font-weight: 500;
+        transition: all 0.6s ease-in-out;
+    }
+    
+    .container .card .content p,
+    .container .card .content a {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9em;
+        line-height: 1.4;
+        margin-bottom: 20px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.6s ease-in-out, visibility 0.6s, transform 0.6s;
+        transform: translateY(10px);
+    }
+    
+    .container .card:hover .content p,
+    .container .card:hover .content a {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+    
+    .container .card .content a {
+        display: inline-block;
+        padding: 10px 30px;
+        /* background: #0096c7; */
+        background: rgba(0, 172, 193, 0.9);
+        color: #fff;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.6s ease-in-out;
+    }
+    
+    .container .card .content a:hover {
+        /* background: #00b4d8; */
+        background: #00d3a0;
+        transform: scale(1.05);
+        transition: all 0.6s ease-in-out;
+        /* box-shadow: 0 5px 15px rgba(0, 180, 216, 0.4); */
+        box-shadow: 0 5px 15px rgba(0, 211, 160, 0.5);
+    }
+    
+    /* Glowing dots in background */
+    @keyframes glow {
+        0%, 100% { opacity: 0.3; }
+        50% { opacity: 0.8; }
+    }
+    
+    body::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: radial-gradient(circle at center, #fff 1px, transparent 1px);
+        background-size: 50px 50px;
+        opacity: 0.1;
+        animation: glow 3s infinite;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+        @media screen and (max-width: 1300px) {
+            .wrapper {
+                flex-direction: column;
+                align-items: center;
+                margin-top: 100px;
+            }
             
+            .container {
+                max-width: 500px;
+                margin-bottom: 20px;
+            }
+            
+            .title {
+                font-size: 1.5rem;
+                top: 40px;
+            }
         }
-        .container .card .imgbx img 
-        {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+        
+        @media screen and (max-width: 600px) {
+            .wrapper {
+                padding: 10px;
+                margin-top: 80px;
+            }
+            
+            .container .card {
+                padding: 20px;
+            }
+            
+            .title {
+                font-size: 1.2rem;
+                top: 30px;
+            }
         }
+    
+    </style>    
 
-        .container .card .content
-        {
-            position: absolute;
-            top: 252px;
-            width: 100%;
-            padding:0 30px;
-            height: 30px;
-            color: #fff;
-            overflow: hidden;
-            text-align: center;
-            transition: 0.5s;
-        }
-        .container .card:hover .content{
-            top: 130px;
-            height: 250px;
-        }
-        .container .card .content h2
-        {
-            font-size: 1.5em;
-            font-weight: 700;
-            color: var(--clr);
-        }
-        .container .card .content p
-        {
-            color: #ccc;
-            margin-top: 15px;
-            font-size: 1.05em;
-        }
-        .container .card .content a 
-        {
-            text-decoration:none;
-            margin-top: 15px;
-            display: inline-block;
-            padding: 12px 25px;
-            background-color: transparent;
-            border: 1px solid #fff;
-            color: #fff;
-            font-size: 500;
-            border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .container .card .content a:hover{
-            background-color: #fff;
-            color: #333;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
-    <div class="background-video">
-        <video autoplay loop muted playsinline>
-            <source src="assets/159053-818026314.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
+    <div class="title-div">
+        <h1 class="title">Sign-In Options</h1>
     </div>
-    <div class="container">
-        <div class="card">
-            <div class="imgbx">
-                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M256 464c-114.69 0-208-93.31-208-208S141.31 48 256 48s208 93.31 208 208-93.31 208-208 208zm0-384c-97 0-176 79-176 176s79 176 176 176 176-78.95 176-176S353.05 80 256 80z"/><path d="M323.67 292c-17.4 0-34.21-7.72-47.34-21.73a83.76 83.76 0 01-22-51.32c-1.47-20.7 4.88-39.75 17.88-53.62S303.38 144 323.67 144c20.14 0 38.37 7.62 51.33 21.46s19.47 33 18 53.51a84 84 0 01-22 51.3C357.86 284.28 341.06 292 323.67 292zm55.81-74zM163.82 295.36c-29.76 0-55.93-27.51-58.33-61.33-1.23-17.32 4.15-33.33 15.17-45.08s26.22-18 43.15-18 32.12 6.44 43.07 18.14 16.5 27.82 15.25 45c-2.44 33.77-28.6 61.27-58.31 61.27zM420.37 355.28c-1.59-4.7-5.46-9.71-13.22-14.46-23.46-14.33-52.32-21.91-83.48-21.91-30.57 0-60.23 7.9-83.53 22.25-26.25 16.17-43.89 39.75-51 68.18-1.68 6.69-4.13 19.14-1.51 26.11a192.18 192.18 0 00232.75-80.17zM163.63 401.37c7.07-28.21 22.12-51.73 45.47-70.75a8 8 0 00-2.59-13.77c-12-3.83-25.7-5.88-42.69-5.88-23.82 0-49.11 6.45-68.14 18.17-5.4 3.33-10.7 4.61-14.78 5.75a192.84 192.84 0 0077.78 86.64l1.79-.14a102.82 102.82 0 013.16-20.02z"/></svg>
-            </div>
-            <div class="content">
-                <h2>Client Sign-in</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae quas dolorum
-                     voluptates corrupti tenetur a optio alias dolore praesentium? Sapiente tempore recusandae obcaecati, 
-                    enim veritatis ex eveniet voluptatem nobis nulla?</p>
-                    <a href="signin.html?role=client">Sign-in</a>
+    <div class="wrapper">
+        <div class="container">
+            <div class="card">
+                <div class="imgbx">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M256 464c-114.69 0-208-93.31-208-208S141.31 48 256 48s208 93.31 208 208-93.31 208-208 208zm0-384c-97 0-176 79-176 176s79 176 176 176 176-78.95 176-176S353.05 80 256 80z"/><path d="M323.67 292c-17.4 0-34.21-7.72-47.34-21.73a83.76 83.76 0 01-22-51.32c-1.47-20.7 4.88-39.75 17.88-53.62S303.38 144 323.67 144c20.14 0 38.37 7.62 51.33 21.46s19.47 33 18 53.51a84 84 0 01-22 51.3C357.86 284.28 341.06 292 323.67 292zm55.81-74zM163.82 295.36c-29.76 0-55.93-27.51-58.33-61.33-1.23-17.32 4.15-33.33 15.17-45.08s26.22-18 43.15-18 32.12 6.44 43.07 18.14 16.5 27.82 15.25 45c-2.44 33.77-28.6 61.27-58.31 61.27zM420.37 355.28c-1.59-4.7-5.46-9.71-13.22-14.46-23.46-14.33-52.32-21.91-83.48-21.91-30.57 0-60.23 7.9-83.53 22.25-26.25 16.17-43.89 39.75-51 68.18-1.68 6.69-4.13 19.14-1.51 26.11a192.18 192.18 0 00232.75-80.17zM163.63 401.37c7.07-28.21 22.12-51.73 45.47-70.75a8 8 0 00-2.59-13.77c-12-3.83-25.7-5.88-42.69-5.88-23.82 0-49.11 6.45-68.14 18.17-5.4 3.33-10.7 4.61-14.78 5.75a192.84 192.84 0 0077.78 86.64l1.79-.14a102.82 102.82 0 013.16-20.02z"/></svg>
+                </div>
+                <div class="content">
+                    <h2>Client Sign-in</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae quas dolorum
+                        voluptates corrupti tenetur a optio alias dolore praesentium? Sapiente tempore recusandae obcaecati, 
+                        enim veritatis ex eveniet voluptatem nobis nulla?</p>
+                        <a href="signin.html?role=client">Sign-in</a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="card">
-            <div class="imgbx">
-                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M256 464c-114.69 0-208-93.31-208-208S141.31 48 256 48s208 93.31 208 208-93.31 208-208 208zm0-384c-97 0-176 79-176 176s79 176 176 176 176-78.95 176-176S353.05 80 256 80z"/><path d="M323.67 292c-17.4 0-34.21-7.72-47.34-21.73a83.76 83.76 0 01-22-51.32c-1.47-20.7 4.88-39.75 17.88-53.62S303.38 144 323.67 144c20.14 0 38.37 7.62 51.33 21.46s19.47 33 18 53.51a84 84 0 01-22 51.3C357.86 284.28 341.06 292 323.67 292zm55.81-74zM163.82 295.36c-29.76 0-55.93-27.51-58.33-61.33-1.23-17.32 4.15-33.33 15.17-45.08s26.22-18 43.15-18 32.12 6.44 43.07 18.14 16.5 27.82 15.25 45c-2.44 33.77-28.6 61.27-58.31 61.27zM420.37 355.28c-1.59-4.7-5.46-9.71-13.22-14.46-23.46-14.33-52.32-21.91-83.48-21.91-30.57 0-60.23 7.9-83.53 22.25-26.25 16.17-43.89 39.75-51 68.18-1.68 6.69-4.13 19.14-1.51 26.11a192.18 192.18 0 00232.75-80.17zM163.63 401.37c7.07-28.21 22.12-51.73 45.47-70.75a8 8 0 00-2.59-13.77c-12-3.83-25.7-5.88-42.69-5.88-23.82 0-49.11 6.45-68.14 18.17-5.4 3.33-10.7 4.61-14.78 5.75a192.84 192.84 0 0077.78 86.64l1.79-.14a102.82 102.82 0 013.16-20.02z"/></svg>
-            </div>
-            <div class="content">
-                <h2>Hospital Sign-in</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae quas dolorum
-                     voluptates corrupti tenetur a optio alias dolore praesentium? Sapiente tempore recusandae obcaecati, 
-                    enim veritatis ex eveniet voluptatem nobis nulla?</p>
-                    <a href="signin.html?role=hospital">Sign-in</a>
+        <div class="container">
+            <div class="card">
+                <div class="imgbx">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M256 464c-114.69 0-208-93.31-208-208S141.31 48 256 48s208 93.31 208 208-93.31 208-208 208zm0-384c-97 0-176 79-176 176s79 176 176 176 176-78.95 176-176S353.05 80 256 80z"/><path d="M323.67 292c-17.4 0-34.21-7.72-47.34-21.73a83.76 83.76 0 01-22-51.32c-1.47-20.7 4.88-39.75 17.88-53.62S303.38 144 323.67 144c20.14 0 38.37 7.62 51.33 21.46s19.47 33 18 53.51a84 84 0 01-22 51.3C357.86 284.28 341.06 292 323.67 292zm55.81-74zM163.82 295.36c-29.76 0-55.93-27.51-58.33-61.33-1.23-17.32 4.15-33.33 15.17-45.08s26.22-18 43.15-18 32.12 6.44 43.07 18.14 16.5 27.82 15.25 45c-2.44 33.77-28.6 61.27-58.31 61.27zM420.37 355.28c-1.59-4.7-5.46-9.71-13.22-14.46-23.46-14.33-52.32-21.91-83.48-21.91-30.57 0-60.23 7.9-83.53 22.25-26.25 16.17-43.89 39.75-51 68.18-1.68 6.69-4.13 19.14-1.51 26.11a192.18 192.18 0 00232.75-80.17zM163.63 401.37c7.07-28.21 22.12-51.73 45.47-70.75a8 8 0 00-2.59-13.77c-12-3.83-25.7-5.88-42.69-5.88-23.82 0-49.11 6.45-68.14 18.17-5.4 3.33-10.7 4.61-14.78 5.75a192.84 192.84 0 0077.78 86.64l1.79-.14a102.82 102.82 0 013.16-20.02z"/></svg>
+                </div>
+                <div class="content">
+                    <h2>Hospital Sign-in</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae quas dolorum
+                        voluptates corrupti tenetur a optio alias dolore praesentium? Sapiente tempore recusandae obcaecati, 
+                        enim veritatis ex eveniet voluptatem nobis nulla?</p>
+                        <a href="signin.html?role=hospital">Sign-in</a>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container">
-        <div class="card">
-            <div class="imgbx">
-                <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M256 464c-114.69 0-208-93.31-208-208S141.31 48 256 48s208 93.31 208 208-93.31 208-208 208zm0-384c-97 0-176 79-176 176s79 176 176 176 176-78.95 176-176S353.05 80 256 80z"/><path d="M323.67 292c-17.4 0-34.21-7.72-47.34-21.73a83.76 83.76 0 01-22-51.32c-1.47-20.7 4.88-39.75 17.88-53.62S303.38 144 323.67 144c20.14 0 38.37 7.62 51.33 21.46s19.47 33 18 53.51a84 84 0 01-22 51.3C357.86 284.28 341.06 292 323.67 292zm55.81-74zM163.82 295.36c-29.76 0-55.93-27.51-58.33-61.33-1.23-17.32 4.15-33.33 15.17-45.08s26.22-18 43.15-18 32.12 6.44 43.07 18.14 16.5 27.82 15.25 45c-2.44 33.77-28.6 61.27-58.31 61.27zM420.37 355.28c-1.59-4.7-5.46-9.71-13.22-14.46-23.46-14.33-52.32-21.91-83.48-21.91-30.57 0-60.23 7.9-83.53 22.25-26.25 16.17-43.89 39.75-51 68.18-1.68 6.69-4.13 19.14-1.51 26.11a192.18 192.18 0 00232.75-80.17zM163.63 401.37c7.07-28.21 22.12-51.73 45.47-70.75a8 8 0 00-2.59-13.77c-12-3.83-25.7-5.88-42.69-5.88-23.82 0-49.11 6.45-68.14 18.17-5.4 3.33-10.7 4.61-14.78 5.75a192.84 192.84 0 0077.78 86.64l1.79-.14a102.82 102.82 0 013.16-20.02z"/></svg>
-            </div>
-            <div class="content">
-                 <h2>Driver Sign-in</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae quas dolorum
-                     voluptates corrupti tenetur a optio alias dolore praesentium? Sapiente tempore recusandae obcaecati, 
-                    enim veritatis ex eveniet voluptatem nobis nulla?</p>
-                    <a href="signin.html?role=driver">Sign-in</a>
+        <div class="container">
+            <div class="card">
+                <div class="imgbx">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="ionicon" viewBox="0 0 512 512"><path d="M256 464c-114.69 0-208-93.31-208-208S141.31 48 256 48s208 93.31 208 208-93.31 208-208 208zm0-384c-97 0-176 79-176 176s79 176 176 176 176-78.95 176-176S353.05 80 256 80z"/><path d="M323.67 292c-17.4 0-34.21-7.72-47.34-21.73a83.76 83.76 0 01-22-51.32c-1.47-20.7 4.88-39.75 17.88-53.62S303.38 144 323.67 144c20.14 0 38.37 7.62 51.33 21.46s19.47 33 18 53.51a84 84 0 01-22 51.3C357.86 284.28 341.06 292 323.67 292zm55.81-74zM163.82 295.36c-29.76 0-55.93-27.51-58.33-61.33-1.23-17.32 4.15-33.33 15.17-45.08s26.22-18 43.15-18 32.12 6.44 43.07 18.14 16.5 27.82 15.25 45c-2.44 33.77-28.6 61.27-58.31 61.27zM420.37 355.28c-1.59-4.7-5.46-9.71-13.22-14.46-23.46-14.33-52.32-21.91-83.48-21.91-30.57 0-60.23 7.9-83.53 22.25-26.25 16.17-43.89 39.75-51 68.18-1.68 6.69-4.13 19.14-1.51 26.11a192.18 192.18 0 00232.75-80.17zM163.63 401.37c7.07-28.21 22.12-51.73 45.47-70.75a8 8 0 00-2.59-13.77c-12-3.83-25.7-5.88-42.69-5.88-23.82 0-49.11 6.45-68.14 18.17-5.4 3.33-10.7 4.61-14.78 5.75a192.84 192.84 0 0077.78 86.64l1.79-.14a102.82 102.82 0 013.16-20.02z"/></svg>
+                </div>
+                <div class="content">
+                    <h2>Driver Sign-in</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae quas dolorum
+                        voluptates corrupti tenetur a optio alias dolore praesentium? Sapiente tempore recusandae obcaecati, 
+                        enim veritatis ex eveniet voluptatem nobis nulla?</p>
+                        <a href="signin.html?role=driver">Sign-in</a>
+                </div>
             </div>
         </div>
     </div>
