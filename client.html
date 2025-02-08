@@ -50,7 +50,8 @@
 
         header{
             position: fixed;
-            background-color: #282d32;
+            /* backdrop-filter: blur(20px); */
+            background: transparent;
             top: 0;
             left: 0;
             width: 100%;
@@ -68,18 +69,18 @@
         }
 
         .logo img{
-            width: 2em;
+            width: 2.2em;
         }
 
         .nav a {
             position: relative;
             top: -10px;
             font-size: 1.1em;
-            color: #fff;
+            color: #000000;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 1000;
             margin-left: 40px;
-
+            cursor: pointer;
         }
 
         .nav a::after{
@@ -89,10 +90,11 @@
             bottom: -6px;
             width: 100%;
             height: 3px;
-            background: white;
+            background: #000000;
             border-radius: 5px;
             transform: scaleX(0);
             transition: transform .5s;
+            cursor: pointer;
 
         }
 
@@ -104,12 +106,12 @@
             width: 50px;
             height: 50px;
             background: transparent;
-            border: 2px solid #fff;
+            border: 2px solid #000;
             outline: none;
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.1em;
-            color: #fff;
+            color: #000;
             font-weight: 500;
             margin-left: 40px;
             align-items: center;
@@ -118,16 +120,17 @@
         }
 
         .nav .btnlog img {
-            margin-top: 2px;
+            margin-top: 3px;
             width: 40px;
             height: 40px;
             border-radius: 50%;
         }
 
         .nav .btnlog:hover {
-            background: #fff;
+            background: #000;
             color: #162938;
         }
+        
         main{
             position: absolute;
             top: 50%;
@@ -146,14 +149,14 @@
 
         main h6{
             font-size: 30px;
-            color: #c1c1c1;
+            color: #decb5e;
         }
     </style>
 </head>
 <body>
     <div class="background-video">
         <video autoplay loop muted playsinline>
-            <source src="assets/1900-151662242_small.mp4" type="video/mp4">
+            <source src="assets/client-background.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
