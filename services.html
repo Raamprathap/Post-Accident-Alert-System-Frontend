@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - Post Accident Alert System</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #081229;
+            color: white;
+            padding: 40px 0;
+        }
+
+        header {
+            position: fixed;
+            background-color: #282d32;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 5px 100px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 99;
+        }
+
+        .logo {
+            color: white;
+            user-select: none;
+        }
+
+        .logo img {
+            width: 2em;
+        }
+
+        .nav a {
+            position: relative;
+            top: -10px;
+            font-size: 1.1em;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            margin-left: 40px;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            width: 100%;
+            height: 3px;
+            background: white;
+            border-radius: 5px;
+            transform: scaleX(0);
+            transition: transform .5s;
+        }
+
+        .nav a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .nav .btnlog {
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border: 2px solid #fff;
+            outline: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.1em;
+            color: #fff;
+            font-weight: 500;
+            margin-left: 40px;
+            align-items: center;
+            justify-content: center;
+            transition: .5s;
+        }
+
+        .nav .btnlog img {
+            margin-top: 2px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .nav .btnlog:hover {
+            background: #fff;
+            color: #162938;
+        }
+
+        .services-container {
+            max-width: 1200px;
+            margin: 120px auto 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
+            backdrop-filter: blur(15px); 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .service-card h2 {
+            font-size: 28px;
+            color: #a9d1ff;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            font-size: 16px;
+            line-height: 1.7;
+            color: #c1c1c1;
+        }
+
+        .impact-list {
+            margin-top: 15px;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .impact-list li {
+            background: rgba(169, 209, 255, 0.1);
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            font-size: 15px;
+            color: #a9d1ff;
+        }
+
+        .cta-section {
+            background: #004aad;
+            color: white;
+            text-align: center;
+            padding: 60px 30px;
+            margin-top: 60px;
+        }
+
+        .cta-section h2 {
+            font-size: 40px;
+        }
+
+        .cta-section p {
+            font-size: 18px;
+            margin-top: 15px;
+            line-height: 1.7;
+        }
+
+        .cta-section button {
+            background: #0078ff;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-size: 16px;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+
+        .cta-section button:hover {
+            background: #005bbd;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="logo"><img src="assets/logo.png" alt=""></h1>
+        <nav class="nav">
+            <a href="client.html">Home</a>
+            <a href="about.html">About</a>
+            <a href="#">Services</a>
+            <button class="btnlog"><img src="" id="user-image"></button>
+        </nav>
+    </header>
+
+    <div class="services-container">
+        <div class="service-card">
+            <h2>1. Advanced Accident Detection</h2>
+            <p>
+                Leveraging multi-sensor integration for accurate accident detection in real-time, reducing false alerts through intelligent analytics.
+            </p>
+            <ul class="impact-list">
+                <li>Timely response activation</li>
+                <li>Enhanced collision detection accuracy</li>
+                <li>Critical decision-making capability</li>
+            </ul>
+        </div>
+
+        <div class="service-card">
+            <h2>2. Precise Location Tracking</h2>
+            <p>
+                GPS-based real-time tracking for pinpointing accident locations with high accuracy, even in remote regions.
+            </p>
+            <ul class="impact-list">
+                <li>Reduced emergency response times</li>
+                <li>Reliable geolocation services</li>
+                <li>Supports seamless navigation for responders</li>
+            </ul>
+        </div>
+
+        <div class="service-card">
+            <h2>3. Automated Emergency Alerts</h2>
+            <p>
+                Automated GSM-based alerts sent directly to emergency services, hospitals, and pre-designated contacts.
+            </p>
+            <ul class="impact-list">
+                <li>Real-time multi-channel alerts</li>
+                <li>Immediate notification to hospitals</li>
+                <li>Communication in low-signal areas</li>
+            </ul>
+        </div>
+
+        <div class="service-card">
+            <h2>4. Intelligent Data Analytics</h2>
+            <p>
+                Analyzing accident data to distinguish between minor impacts and severe accidents with data-driven decision-making.
+            </p>
+            <ul class="impact-list">
+                <li>Real-time decision support</li>
+                <li>Accurate impact severity classification</li>
+                <li>Advanced analytics dashboard</li>
+            </ul>
+        </div>
+
+        <div class="service-card">
+            <h2>5. Driver Safety Monitoring</h2>
+            <p>
+                Tracking driver behavior and alerting them to risky maneuvers to promote safer driving practices.
+            </p>
+            <ul class="impact-list">
+                <li>Reduced driver errors</li>
+                <li>Data-driven behavior analysis</li>
+                <li>Accident prevention insights</li>
+            </ul>
+        </div>
+
+        <div class="service-card">
+            <h2>6. Sustainable Development Impact</h2>
+            <p>
+                Our services contribute to achieving key Sustainable Development Goals, promoting a safer, smarter society.
+            </p>
+            <ul class="impact-list">
+                <li>SDG 3: Good Health and Well-being</li>
+                <li>SDG 9: Innovation in Infrastructure</li>
+                <li>SDG 11: Sustainable Smart Cities</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="cta-section">
+        <h2>Why Choose Post Accident Alert System?</h2>
+        <p>
+            Our system is designed with cutting-edge technology and a deep understanding of real-world traffic scenarios, ensuring faster emergency response, reduced fatalities, and a comprehensive approach to road safety.
+        </p>
+        <button>Learn More About Our Impact</button>
+    </div>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+        document.getElementById('user-image').src = `assets/${username}.jpg` || "assets/default.jpg";
+
+        document.querySelector('.btnlog').addEventListener('click', () => {
+            if (username) {
+                window.location.href = `client-dashboard.html?username=${encodeURIComponent(username)}`;
+            } else {
+                alert("Username is missing!");
+            }
+        });
+    </script>
+</body>
+</html>
