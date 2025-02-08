@@ -63,33 +63,12 @@ const dusername = urlParams.get('username');
 console.log("Username received:", dusername);
 
 const userContent = {
-    "user1": {'name': 'Raam', 'hname': "Ganga Hospital"},
-    "user2": {'name': 'Prathap', 'hname': "Amrita Clinic"},
+    "Raam": {'name': 'Raam', 'hname': "Ganga Hospital"},
+    "Prathap": {'name': 'Prathap', 'hname': "Amrita Clinic"},
 };
 
 document.querySelector(".hospital_name").innerHTML=`${userContent[dusername]['name']}<br>${userContent[dusername]['hname']}`
 
-// Listen for incoming messages
-// socket.onmessage = (event) => {
-//     console.log('Message received in map.html:', event.data);
-//     const data = JSON.parse(event.data);
-    // const type = data.type;
-    // const lat = data.latt;
-    // const lng = data.lngg;
-    // const username = data.user;
-    // console.log(type);
-    // console.log(username);
-
-//     // Process only messages of type 'map_update' and check username
-//     if (type === 'map_update' && lat && lng && username === userContent[dusername]['hname']) {
-//         console.log('Processing map update with coordinates:', lat, lng);
-//         getRouteToReceivedLocation(lat, lng);
-//     } else if (type !== 'map_update') {
-//         console.log(`Ignoring message of type '${type}' in map.html`);
-//     } else {
-//         console.error('Invalid data received in map.html or username mismatch:', data);
-//     }
-// };
 let p_name = null;
 
 socket.onmessage = async (event) => {

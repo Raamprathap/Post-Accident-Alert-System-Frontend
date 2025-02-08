@@ -25,9 +25,31 @@
             background-color: #f5f5f5;
         }
 
+        .background-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .background-video video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+        }
+
         header{
             position: relative;
-            background-color: #282d32;
+            background-color: transparent;
             top: 0;
             left: 0;
             width: 100%;
@@ -36,7 +58,7 @@
             justify-content: space-between;
             align-items: center;
             z-index: 99;
-
+            backdrop-filter: blur(5px);
         }
 
         .logo {
@@ -45,35 +67,36 @@
         }
 
         .logo img{
-            width: 2em;
+            width: 2.2em;
         }
 
-        .nav .a {
+        .nav a {
             position: relative;
             top: -10px;
             font-size: 1.1em;
-            color: #fff;
+            color: #000000;
             text-decoration: none;
-            font-weight: 500;
+            font-weight: 600;
             margin-left: 40px;
-
+            cursor: pointer;
         }
 
-        .nav .a::after{
+        .nav a::after{
             content:'';
             position: absolute;
             left: 0;
             bottom: -6px;
             width: 100%;
             height: 3px;
-            background: #fff;
+            background: #000000;
             border-radius: 5px;
             transform: scaleX(0);
             transition: transform .5s;
+            cursor: pointer;
 
         }
 
-        .nav .a:hover:after {
+        .nav a:hover:after {
             transform: scaleX(1);
         }
 
@@ -81,10 +104,13 @@
             width: 50px;
             height: 50px;
             background: transparent;
-            border: 2px solid #fff;
+            border: 2px solid #000;
             outline: none;
             border-radius: 50%;
             cursor: pointer;
+            font-size: 1.1em;
+            color: #000;
+            font-weight: 500;
             margin-left: 40px;
             align-items: center;
             justify-content: center;
@@ -92,47 +118,51 @@
         }
 
         .nav .btnlog img {
-            margin-top: 2px;
+            margin-top: 3px;
             width: 40px;
             height: 40px;
             border-radius: 50%;
         }
 
         .nav .btnlog:hover {
-            background: #fff;
+            background: #000;
+            color: #162938;
         }
 
-.dropdown {
-    position: absolute;
-    top: 50px;
-    right: 100px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    overflow: hidden;
-    transform: scale(0);
-    transform-origin: top right;
-    transition: transform 0.3s ease;
-    z-index: 10;
-}
+        .dropdown {
+            position: absolute;
+            top: 63px;
+            right: 135px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transform: scale(0);
+            transform-origin: top right;
+            transition: transform 0.3s ease;
+            z-index: 10;
+        }
 
-.dropdown.active {
-    transform: scale(1);
-}
+        .dropdown.active {
+            transform: scale(1);
+        }
 
-.dropdown a {
-    display: block;
-    left: -20px;
-    padding: 20px 20px;
-    color: var(--primary);
-    text-decoration: none;
-    transition: background 0.3s ease;
-}
+        .dropdown a {
+            display: block;
+            position: relative;
+            top: 10px;
+            left: -20px;
+            padding: 10px 10px;
+            padding-bottom: 25px;
+            color: var(--primary);
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
 
-.dropdown a:hover {
-    background: var(--secondary);
-    color: white;
-}
+        .dropdown a:hover {
+            background: var(--secondary);
+            color: white;
+        }
 
         .container {
             display: flex;
@@ -140,8 +170,11 @@
         }
 
         .sidebar {
+            color: #fff;
             width: 250px;
-            background: white;
+            background: transparent;
+            backdrop-filter: blur(5px);
+            height: auto;
             padding: 2rem;
             box-shadow: 2px 0 4px rgba(0,0,0,0.1);
         }
@@ -151,16 +184,18 @@
             margin: 0.5rem 0;
             cursor: pointer;
             border-radius: 5px;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
         }
 
         .nav-item:hover {
-            background-color: #f0f0f0;
+            border: 0.5px solid #8a8a8a;
+            border-radius: 15px;
         }
 
         .nav-item.active {
-            background-color: #e0e0e0;
             font-weight: bold;
+            border: 0.5px solid #fff;
+            border-radius: 15px;
         }
 
         .content {
@@ -180,22 +215,28 @@
         }
 
         .info-table {
+            color: white;
             width: 100%;
             max-width: 800px;
             margin: 2rem auto;
             border-collapse: collapse;
-            background: white;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: transparent;
+            backdrop-filter: blur(5px);
+            border-radius: 15px;
+            font-weight: 400;
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
         }
 
         .info-table th, .info-table td {
             padding: 1rem;
             text-align: left;
             border-bottom: 1px solid #eee;
+            font-weight: 400;
         }
 
         .info-table th {
-            background-color: #f8f8f8;
+            background-color: transparent;
+            font-weight: 500;
         }
 
         .section {
@@ -208,9 +249,18 @@
     </style>
 </head>
 <body>
+    <div class="background-video">
+        <video autoplay loop muted playsinline>
+            <source src="assets/client-background.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
     <header>
         <h1 class="logo"><img src="assets/logo.png" alt=""></h1>
         <nav class="nav">
+            <a class="a home">Home</a>
+            <a href="#" class="a">About</a>
             <a href="client.html" class="a">Home</a>
             <a href="about.html" class="a">About</a>
             <a href="#" class="a">Services</a>
@@ -308,9 +358,17 @@
         const username = urlParams.get('username');
         console.log("Username received:", username);
 
+        document.querySelector('.home').addEventListener('click', () => {
+            if (username) {
+                window.location.href = `client.html?username=${encodeURIComponent(username)}`;
+            } else {
+                alert("Username is missing!");
+            }
+        });
+
         const userImages = {
-            "user1": {'img': "assets/1.jpg", 'name': "vishaal", 'age': 25, 'bg': "B+", 'MC': "None", 'Aller': "Peanuts", 'car_img': "assets/car2.webp", 'make': "Suzuki", 'model': "swift", 'year': "2021", 'plate': "TN37DK 3101", 'date': "26/11/2024"},
-            "user2": {'img': "assets/2.jpg", 'name': "Akhilesh", 'age': 57, 'bg': "A1+", 'MC': "None", 'Aller': "Banana", 'car_img': "assets/car1.webp", 'make': "Toyota", 'model': "Camry", 'year': "2022", 'plate': "TN38DK 5101", 'date': "26/12/2024"},
+            "Vishaal": {'img': "assets/1.jpg", 'name': "vishaal", 'age': 25, 'bg': "B+", 'MC': "None", 'Aller': "Peanuts", 'car_img': "assets/car2.webp", 'make': "Suzuki", 'model': "swift", 'year': "2021", 'plate': "TN37DK 3101", 'date': "26/11/2024"},
+            "Akhilesh": {'img': "assets/2.jpg", 'name': "Akhilesh", 'age': 57, 'bg': "A1+", 'MC': "None", 'Aller': "Banana", 'car_img': "assets/car1.webp", 'make': "Toyota", 'model': "Camry", 'year': "2022", 'plate': "TN38DK 5101", 'date': "26/12/2024"},
         };
 
         document.querySelector(".User_name").innerHTML=`${userImages[username]['name']}`

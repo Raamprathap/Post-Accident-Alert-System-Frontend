@@ -13,7 +13,7 @@
 		}
 
 		body {
-			background: #f6f5f7;
+			background: linear-gradient(0deg, #007f5f, #3a86ff);
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -21,6 +21,62 @@
 			font-family: 'Montserrat', sans-serif;
 			height: 100vh;
 			margin: -20px 0 50px;
+			overflow: hidden;
+		}
+
+		body::before {
+			content: '';
+			position: absolute;
+			width: 150%;
+			height: 150%;
+			background: repeating-linear-gradient(
+				transparent,
+				transparent 50px,
+				rgba(0, 102, 150, 0.05) 50px,
+				rgba(0, 102, 150, 0.05) 51px
+				/* rgba(0, 102, 204, 0.05) 50px,
+				rgba(0, 102, 204, 0.05) 51px */
+		),
+		repeating-linear-gradient(
+			90deg,
+			transparent,
+			transparent 50px,
+			/* rgba(0, 102, 204, 0.05) 50px,
+			rgba(0, 102, 204, 0.05) 51px */
+			rgba(0, 204, 150, 0.05) 50px,
+			rgba(0, 204, 150, 0.05) 51px
+		);
+			animation: move 15s linear infinite;
+			z-index: 1;
+		}
+		
+		@keyframes move {
+			0% {
+				transform: translate(-50px, -50px);
+			}
+			100% {
+				transform: translate(50px, 50px);
+			}
+		}
+
+		@keyframes glow {
+			0%, 100% { opacity: 0.3; }
+			50% { opacity: 0.8; }
+		}
+		
+		body::after {
+			content: '';
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-image: radial-gradient(circle at center, #fff 1px, transparent 1px);
+			background-size: 50px 50px;
+			opacity: 0.1;
+			animation: glow 3s infinite;
+			pointer-events: none;
+			z-index: 1;
 		}
 
 		h1 {
