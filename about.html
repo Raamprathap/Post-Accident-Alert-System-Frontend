@@ -3,52 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Client</title>
+    <title>About</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins');
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap');
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-
         }
 
         body {
             display: flex;
             justify-content: center;
-            align-items:center;
+            align-items: center;
             min-height: 700px;
-            height: 700px;
-            width: 800px;
-            background-color:#081229;
+            background-color: #081229;
             background-position: center;
+            color: white;
+            position: relative;
         }
 
-        .background-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .background-video video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-        }
-
-        header{
+        header {
             position: fixed;
             background-color: #282d32;
             top: 0;
@@ -59,7 +36,6 @@
             justify-content: space-between;
             align-items: center;
             z-index: 99;
-
         }
 
         .logo {
@@ -67,7 +43,7 @@
             user-select: none;
         }
 
-        .logo img{
+        .logo img {
             width: 2em;
         }
 
@@ -79,11 +55,10 @@
             text-decoration: none;
             font-weight: 500;
             margin-left: 40px;
-
         }
 
-        .nav a::after{
-            content:'';
+        .nav a::after {
+            content: '';
             position: absolute;
             left: 0;
             bottom: -6px;
@@ -93,10 +68,9 @@
             border-radius: 5px;
             transform: scaleX(0);
             transition: transform .5s;
-
         }
 
-        .nav a:hover:after {
+        .nav a:hover::after {
             transform: scaleX(1);
         }
 
@@ -128,53 +102,84 @@
             background: #fff;
             color: #162938;
         }
-        main{
-            position: absolute;
-            top: 50%;
-            left: 1%;
-            transform: translateY(-50%);
-            color: #fff;
+
+        .about-section {
+            text-align: center;
+            max-width: 1000px;
+            padding: 80px 40px;
+            margin: 120px auto;
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: 20px;
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px); 
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3); 
+            border: 1px solid rgba(255, 255, 255, 0.2); 
         }
 
-        main h1{
-            font-size: 50px;
-        }
-
-        main h1 span{
+        .about-section h1 {
+            font-size: 48px;
             color: #ffffff;
         }
 
-        main h6{
-            font-size: 30px;
+        .about-section h6 {
+            font-size: 22px;
             color: #c1c1c1;
+            margin: 20px 0;
+        }
+
+        .about-section p {
+            font-size: 20px;
+            line-height: 1.6;
+            color: #dddddd;
+            margin-top: 15px;
+        }
+
+        .mission {
+            margin-top: 60px;
+            padding: 40px;
+            background: rgba(169, 209, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(169, 209, 255, 0.2);
+        }
+
+        .mission h2 {
+            font-size: 32px;
+            color: #a9d1ff;
         }
     </style>
 </head>
 <body>
-    <div class="background-video">
-        <video autoplay loop muted playsinline>
-            <source src="assets/1900-151662242_small.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-
     <header>
         <h1 class="logo"><img src="assets/logo.png" alt=""></h1>
         <nav class="nav">
-            <a href="index.html">Home</a>
+            <a href="client.html">Home</a>
             <a href="about.html">About</a>
             <a href="#">Services</a>
             <button class="btnlog"><img src="" id="user-image"></button>
         </nav>
     </header>
-    <main>
-        <h1>
-            Creating a future where<br>
-            every Car is <span>SMART</span> and<br>
-            every Driver is <span>SAFE</span><br>
-        </h1>
-        <h6>Empowering Your Car with smartness and safety!</h6>
-    </main>
+
+    <div class="about-section">
+        <h1>About Post Accident Alert System</h1>
+        <h6>Enhancing Safety and Emergency Response on Roads</h6>
+        <p>
+            The Post-Accident Alert System is a cutting-edge safety solution intended to improve emergency response in vehicle accidents. 
+            This system utilizes sensors to identify accidents immediately. Once an accident is detected, it promptly pinpoints the location 
+            through GPS and sends an alert to the nearest hospital or emergency services automatically, facilitating quicker ambulance dispatch 
+            and potentially preserving lives.
+        </p>
+        <p>
+            Empowering individuals with a reliable, real-time accident alert system that ensures immediate detection, this solution provides 
+            accessible and efficient tools that enhance road safety, reduce response times, and support timely medical intervention. 
+            Our system addresses the intersection of technology, security, and healthcare to create effective life-saving solutions.
+        </p>
+
+        <div class="mission">
+            <h2>Our Mission</h2>
+            <p>To reduce road fatalities by providing timely alerts and fostering a safer community.</p>
+        </div>
+    </div>
+
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
