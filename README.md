@@ -1,22 +1,22 @@
-🚗 Post Accident Alert System
+# 🚗 **Post Accident Alert System**  
 
-A *web-based dashboard application* designed for *clients, drivers, and hospitals* to facilitate seamless ride booking and transport management. This project includes multiple interfaces for different users, allowing efficient communication and service handling.
-
----
-
-📌 Features  
-
-✅ Client Dashboard – Users can book rides, track drivers, and view ride history.  
-✅ Driver Interface – Drivers can accept/reject ride requests and update trip statuses.  
-✅ Hospital Dashboard – Hospitals can manage patient transport services.  
-✅ Authentication System – Secure sign-in process for all users.  
-✅ Responsive Design – Optimized for different devices.  
+A **web-based dashboard application** designed to enhance road safety by providing real-time accident detection, automated alerts, and data-driven decision-making. The system empowers **clients, drivers, and hospitals** to handle emergencies efficiently through interactive dashboards and smart monitoring features.
 
 ---
 
-📂 Project Structure  
+## 📌 **Key Features**
 
+- ✅ **Client Dashboard:** Monitor accident reports and track emergency responses in real time.  
+- ✅ **Driver Interface:** Automated alerts for accidents and tracking of critical incidents during journeys.  
+- ✅ **Hospital Dashboard:** Manage emergency transport and respond swiftly to accident alerts.  
+- ✅ **Secure Authentication:** Role-based access control for all users.  
+- ✅ **Responsive Design:** Optimized for seamless usage across different devices and screen sizes.  
 
+---
+
+## 📂 **Project Structure**
+
+```
 Post Accident Alert System/
 ├── client-dashboard.html   # Client dashboard interface
 ├── client.html             # Main client page
@@ -29,44 +29,55 @@ Post Accident Alert System/
 └── assets/                 
     ├── car1.webp           # Image asset
     └── car2.webp           # Image asset
-
-
----
-
-🚀 Getting Started  
-
-1️⃣ Prerequisites
-Ensure you have a *modern web browser* (Chrome, Edge, Firefox) to run the project.  
-
-2️⃣ How to Run
-1. Clone this repository:
-   bash
-   git clone https://github.com/yourusername/raamprathap-sample-front.git
-   
-2. Navigate into the project folder:
-   bash
-   cd Post Accident Alert System
-   
-3. Open index.html in your browser to start the application.  
+```
 
 ---
 
-🛠 Technologies Used  
+## 🚀 **Getting Started**
 
-- *HTML5* – Structure  
-- *CSS3* – Styling (with driver.css)  
-- *JavaScript (ES6)* – Interactive features (driver.js)  
-- *WebP Images* – Optimized assets  
+### **Prerequisites**  
+Ensure you have a modern web browser such as **Chrome**, **Edge**, or **Firefox** to run the project.
+
+### **How to Run**
+1. Clone this repository:  
+
+   ```bash
+   git clone https://github.com/yourusername/Post-Accident-Alert-System.git
+   ```  
+
+2. Navigate into the project folder:  
+
+   ```bash
+   cd Post-Accident-Alert-System
+   ```  
+
+3. Open **index.html** in your browser to launch the application.
 
 ---
 
-📞 Contact  
+## 🛠 **Technologies Used**
 
-👤 Raam Prathap  
-📧 Email: raamprathap17242@gmail.com  
-🔗 GitHub: [Raamprathap]((https://github.com/Raamprathap))  
+- **HTML5:** Structuring the web application  
+- **CSS3:** Styling and layout (with `driver.css`)  
+- **JavaScript (ES6):** Dynamic and interactive features (`driver.js`)  
+- **WebP Images:** Optimized image assets for faster loading  
 
 ---
 
-⭐ Contributions & Improvements
-Feel free to *fork* this project and submit *pull requests*! 🚀
+## 📞 **Contact**
+
+- 👤 **Raam Prathap**  
+  📧 Email: [raamprathap17242@gmail.com](mailto:raamprathap17242@gmail.com)  
+  🔗 GitHub: [Raam Prathap](https://github.com/Raamprathap)  
+
+- 👤 **Akshay KS**  
+  📧 Email: [akshayks1005@gmail.com](mailto:akshayks1005@gmail.com)  
+  🔗 GitHub: [Akshay KS](https://github.com/akshayks13)  
+
+---
+
+## ⭐ **Contributions & Improvements**  
+
+We welcome contributions to improve this project! Feel free to **fork** the repository, make changes, and submit **pull requests** to help us enhance road safety and emergency response efficiency.  
+
+💡 *Your contributions are highly appreciated!* 🚀  
