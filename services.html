@@ -50,6 +50,7 @@
             text-decoration: none;
             font-weight: 500;
             margin-left: 40px;
+            cursor: pointer;
         }
 
         .nav a::after {
@@ -187,9 +188,9 @@
     <header>
         <h1 class="logo"><img src="assets/logo.png" alt=""></h1>
         <nav class="nav">
-            <a href="client.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="#">Services</a>
+            <a class="home">Home</a>
+            <a class="about">About</a>
+            <a class="services">Services</a>
             <button class="btnlog"><img src="" id="user-image"></button>
         </nav>
     </header>
@@ -273,17 +274,56 @@
         <p>
             Our system is designed with cutting-edge technology and a deep understanding of real-world traffic scenarios, ensuring faster emergency response, reduced fatalities, and a comprehensive approach to road safety.
         </p>
-        <button>Learn More About Our Impact</button>
+        <button class="about1">Learn More About Our Impact</button>
     </div>
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
-        document.getElementById('user-image').src = `assets/${username}.jpg` || "assets/default.jpg";
+        console.log("Username received:", username);
+
+        const userImages = {
+            "Vishaal": "assets/1.jpg",
+            "Akhilesh": "assets/2.jpg",
+        };
+
+        document.getElementById('user-image').src = userImages[username] || "assets/3.jpg";
 
         document.querySelector('.btnlog').addEventListener('click', () => {
             if (username) {
                 window.location.href = `client-dashboard.html?username=${encodeURIComponent(username)}`;
+            } else {
+                alert("Username is missing!");
+            }
+        });
+
+        document.querySelector('.home').addEventListener('click', () => {
+            if (username) {
+                window.location.href = `client.html?username=${encodeURIComponent(username)}`;
+            } else {
+                alert("Username is missing!");
+            }
+        });
+
+        document.querySelector('.about').addEventListener('click', () => {
+            if (username) {
+                window.location.href = `about.html?username=${encodeURIComponent(username)}`;
+            } else {
+                alert("Username is missing!");
+            }
+        });
+
+        document.querySelector('.about1').addEventListener('click', () => {
+            if (username) {
+                window.location.href = `about.html?username=${encodeURIComponent(username)}`;
+            } else {
+                alert("Username is missing!");
+            }
+        });
+
+        document.querySelector('.services').addEventListener('click', () => {
+            if (username) {
+                window.location.href = `services.html?username=${encodeURIComponent(username)}`;
             } else {
                 alert("Username is missing!");
             }
