@@ -6,13 +6,14 @@
     <title>PASS</title>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://kit.fontawesome.com/2db523e843.js" crossorigin="anonymous"></script>
     <style>
 :root {
     --primary: #2C3E50;
     --secondary: #3498DB;
     --accent: #E74C3C;
-    --background: #ECF0F1;
-    --text: #2C3E50;
+    --background: #D6EAF8;
+    --text: #000;
     --success: #27AE60;
     --card-bg: #FFFFFF;
 }
@@ -22,6 +23,137 @@ body {
     margin: 0;
     font-family: 'Segoe UI', system-ui, sans-serif;
     transition: background-color 0.3s ease;
+}
+
+.background-video {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: -1;
+}
+
+.bubble {
+  position: absolute;
+  right: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  box-shadow: inset 0 0 25px rgba (255, 255, 255, 0.25);
+  animation: animate_4010 8s ease-in-out infinite;
+}
+
+.bubble:nth-child(2) {
+  position: relative;
+  zoom: 0.45;
+  right: -10px;
+  top: -100px;
+  animation-delay: -4s;
+}
+
+.bubble:nth-child(3) {
+  position: relative;
+  zoom: 0.45;
+  left: -80px;
+  top: -300px;
+  animation-delay: -6s;
+}
+
+.bubble:nth-child(4) {
+  position: relative;
+  zoom: 0.35;
+  right: -120px;
+  bottom: -200px;
+  animation-delay: -3s;
+}
+
+.bubble:nth-child(5) {
+  position: relative;
+  zoom: 0.5;
+  right: 0px;
+  top: 200px;
+  animation-delay: -5s;
+}
+
+@keyframes animate_4010 {
+  0%,100% {
+    transform: translateY(-20px);
+  }
+
+  50% {
+    transform: translateY(20px);
+  }
+}
+
+.bubble::before {
+  content: '';
+  position: absolute;
+  top: 50px;
+  right: 45px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: #fff;
+  z-index: 10;
+  filter: blur(2px);
+}
+
+.bubble::after {
+  content: '';
+  position: absolute;
+  top: 80px;
+  right: 80px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  z-index: 10;
+  filter: blur(2px);
+}
+
+.bubble span {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.bubble span:nth-child(1) {
+  inset: 10px;
+  border-left: 15px solid #0fb4ff;
+  filter: blur(8px);
+}
+
+.bubble span:nth-child(2) {
+  inset: 10px;
+  border-right: 15px solid #ff4484;
+  filter: blur(8px);
+}
+
+.bubble span:nth-child(3) {
+  inset: 10px;
+  border-top: 15px solid #ffeb3b;
+  filter: blur(8px);
+}
+
+.bubble span:nth-child(4) {
+  inset: 30px;
+  border-left: 15px solid #ff4484;
+  filter: blur(12px);
+}
+
+.bubble span:nth-child(5) {
+  inset: 10px;
+  border-bottom: 10px solid #fff;
+  filter: blur(8px);
+  transform: rotate(330deg);
+}
+
+.bubble span:nth-child(6) {
+  inset: 20px;
+  border-bottom: 10px solid #fff;
+  filter: blur(8px);
+  transform: rotate(330deg);
 }
 
 .hospital {
@@ -36,9 +168,8 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #282d32;
+    background-color: transparent;
     padding: 1rem 2rem;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     animation: slideDown 0.5s ease;
 }
 
@@ -64,10 +195,9 @@ body {
     cursor: pointer;
 }
 
-.user-icon img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
+.icon {
+    font-size: 2em;
+    color: #000000;
 }
 
 .dropdown {
@@ -91,7 +221,7 @@ body {
 .dropdown a {
     display: block;
     padding: 10px 20px;
-    color: var(--primary);
+    color: var(--text);
     text-decoration: none;
     transition: background 0.3s ease;
 }
@@ -126,7 +256,7 @@ body {
 .text {
     flex: 0 0 400px;
     padding: 2rem;
-    background: var(--card-bg);
+    background: transparent;
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
@@ -249,12 +379,12 @@ input:checked + .slider:before {
 
 #list li p {
     margin: 0;
-    color: var(--text);
+    color: var(--primary);
 }
 
 .done-btn {
     background: transparent;
-    color: var(--accent);
+    color: var(--text);
     border: 1px solid var(--accent);
     border-radius: 5px;
     cursor: pointer;
@@ -285,18 +415,65 @@ fieldset {
 }
 
 legend {
-    color: var(--primary);
+    color: var(--text);
     font-weight: 600;
     padding: 0 1rem;
 }
     </style>
 </head>
 <body>
+    <div class="background-video">
+        <div class="container">
+            <div class="bubble">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="bubble">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="bubble">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="bubble">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="bubble">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="bubble">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+
     <div class="hospital">
         <nav class="navbar">
             <h1><img src="assets/logo.png" alt=""></h1>
             <div class="user-icon" onclick="toggleDropdown()">
-                <img src="assets/logo.png" alt="User">
+                <i class="fa-solid fa-bars icon"></i>
                 <div class="dropdown" id="userDropdown">
                     <a href="#" class="hospital_name">Hospital Name</a>
                     <a href="signin.html?role=hospital">Log Out</a>
@@ -398,6 +575,32 @@ legend {
     
             update();
         }
+
+        async function denyBtn_onclick() {
+            inp_data.type = 'Deny_request';
+            console.log(inp_data);
+            try {
+                const response = await fetch('https://sample-server-plq2.onrender.com/signal', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(inp_data)
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                // Only try to parse JSON if we have content
+                if (response.headers.get("content-length") !== "0") {
+                    const result = await response.json();
+                    console.log('Deny request result:', result);
+                }
+            } catch (error) {
+                console.error('Error sending deny request:', error);
+            }
+            toggle.click();
+            closePopup();
+        };
     
         function update() {
             if (toggle_val === 1) {
