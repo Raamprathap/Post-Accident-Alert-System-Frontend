@@ -44,7 +44,7 @@ function success(position) {
 }
 
 // Establish WebSocket connection
-const socket = new WebSocket('wss://post-accident-alert-system-backend.onrender.com');
+const socket = new WebSocket('wss://sample-server-plq2.onrender.com');
 
 socket.onopen = () => {
     console.log('WebSocket connection established in map.html');
