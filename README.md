@@ -73,6 +73,16 @@ Ensure you have a modern web browser such as **Chrome**, **Edge**, or **Firefox*
   🔗 GitHub: [Akshay KS](https://github.com/akshayks13)  
 
 ---
+## Post Accident Alert System - Backend  
+
+This repository contains the **frontend** code for the Post Accident Alert System.  
+
+The **backend** code is available here:  
+[Post Accident Alert System - Backend](https://github.com/Raamprathap/Post-Accident-Alert-System-Backend)  
+
+The backend handles accident detection, user authentication, and alert notifications, integrating seamlessly with this frontend.
+
+---
 
 ## ⭐ **Contributions & Improvements**  
 
