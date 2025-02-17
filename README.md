@@ -26,9 +26,7 @@ Post Accident Alert System/
 ├── hospital.html           # Hospital dashboard
 ├── index.html              # Homepage
 ├── signin.html             # Sign-in page
-└── assets/                 
-    ├── car1.webp           # Image asset
-    └── car2.webp           # Image asset
+└── assets
 ```
 
 ---
@@ -81,3 +79,6 @@ Ensure you have a modern web browser such as **Chrome**, **Edge**, or **Firefox*
 We welcome contributions to improve this project! Feel free to **fork** the repository, make changes, and submit **pull requests** to help us enhance road safety and emergency response efficiency.  
 
 💡 *Your contributions are highly appreciated!* 🚀  
+
+### Demo Video
+Watch our demo video on YouTube: [Post Accident Alert System Demo](https://www.youtube.com/watch?v=tFlGSaOoEHg)
