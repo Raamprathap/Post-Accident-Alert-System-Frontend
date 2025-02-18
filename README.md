@@ -89,6 +89,7 @@ The backend handles accident detection, user authentication, and alert notificat
 We welcome contributions to improve this project! Feel free to **fork** the repository, make changes, and submit **pull requests** to help us enhance road safety and emergency response efficiency.  
 
 💡 *Your contributions are highly appreciated!* 🚀  
+---
 
 ### Demo Video
 Watch our demo video on YouTube: [Post Accident Alert System Demo](https://drive.google.com/file/d/1Tzeq6simlTILJcOodSM1JiZsNi3x_R4g/view?usp=drive_link)
