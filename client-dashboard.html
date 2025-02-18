@@ -70,7 +70,7 @@
             width: 2.2em;
         }
 
-        .nav a {
+        .nav .a {
             position: relative;
             top: -10px;
             font-size: 1.1em;
@@ -81,7 +81,7 @@
             cursor: pointer;
         }
 
-        .nav a::after{
+        .nav .a::after{
             content:'';
             position: absolute;
             left: 0;
@@ -96,7 +96,7 @@
 
         }
 
-        .nav a:hover:after {
+        .nav .a:hover:after {
             transform: scaleX(1);
         }
 
@@ -138,7 +138,6 @@
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
             overflow: hidden;
             transform: scale(0);
-            transform-origin: top right;
             transition: transform 0.3s ease;
             z-index: 10;
         }
@@ -147,19 +146,18 @@
             transform: scale(1);
         }
 
-        .dropdown a {
+        .dropdown .dropdown-link {
             display: block;
             position: relative;
-            top: 10px;
-            left: -20px;
-            padding: 10px 10px;
-            padding-bottom: 25px;
+            margin: 0;
+            padding: 15px;
             color: var(--primary);
             text-decoration: none;
             transition: background 0.3s ease;
+            cursor: pointer;
         }
 
-        .dropdown a:hover {
+        .dropdown .dropdown-link:hover {
             background: var(--secondary);
             color: white;
         }
@@ -264,8 +262,8 @@
             <a class="a services">Services</a>
             <button class="btnlog" onclick="toggleDropdown()"><img src="assets/1.jpg" id="user-icon"></button>
             <div class="dropdown" id="userDropdown">
-                <a href="#" class="User_name">User Name</a>
-                <a href="signin.html?role=client">Log Out</a>
+                <a class="dropdown-link User_name">User Name</a>
+                <a href="signin.html?role=client" class="dropdown-link">Log Out</a>
             </div>
         </nav>
     </header>
@@ -385,7 +383,15 @@
             "Akhilesh": {'img': "assets/2.jpg", 'name': "Akhilesh", 'age': 57, 'bg': "A1+", 'MC': "None", 'Aller': "Women", 'car_img': "assets/car1.webp", 'make': "Toyota", 'model': "Camry", 'year': "2022", 'plate': "TN38DK 5101", 'date': "26/12/2024"},
         };
 
-        document.querySelector(".User_name").innerHTML=`${userImages[username]['name']}`
+        document.querySelector(".User_name").innerHTML=`${userImages[username]['name']}`;
+
+        document.querySelector(".User_name").addEventListener('click', () => {
+            if (username) {
+                window.location.href = `client.html?username=${encodeURIComponent(username)}`;
+            } else {
+                alert("Username is missing!");
+            }
+        })
 
         document.querySelector(".name").innerHTML=`${userImages[username]['name']}`;
         document.querySelector(".age").innerHTML=`${userImages[username]['age']}`;
