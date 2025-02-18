@@ -89,6 +89,7 @@ The backend handles accident detection, user authentication, and alert notificat
 We welcome contributions to improve this project! Feel free to **fork** the repository, make changes, and submit **pull requests** to help us enhance road safety and emergency response efficiency.  
 
 💡 *Your contributions are highly appreciated!* 🚀  
+
 ---
 
 ### Demo Video
