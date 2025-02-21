@@ -767,7 +767,7 @@ legend {
                     </p>
                 </div>
                 <div style="display: flex; gap: 1rem; justify-content: center;">
-                    <button id="acceptBtn" style="
+                    <button id="acceptBtn" onclick = "acceptBtn_onclick()" style="
                         padding: 0.75rem 1.5rem;
                         background: linear-gradient(135deg, var(--secondary), var(--primary));
                         color: white;
@@ -833,7 +833,7 @@ legend {
             }, 300);
         }
 
-        acceptBtn.onclick = () => {
+        function acceptBtn_onclick(){
             updateAccidentAccepterStatus(name, false);
             const currentAmbulanceCount = parseInt(ambulanceCounterElement.textContent);
             if (currentAmbulanceCount > 0) {
@@ -849,6 +849,10 @@ legend {
                 alert('No ambulances available.');
             }
             closePopup();
+        }
+
+        acceptBtn.onclick = () => {
+            
         };
 
         async function denyBtn_onclick() {
