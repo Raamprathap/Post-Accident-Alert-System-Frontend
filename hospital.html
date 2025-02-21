@@ -714,16 +714,6 @@ legend {
             }
 
         };
-
-        function closePopup() {
-            popup.style.transform = 'translate(-50%, -50%) scale(0.7)';
-            popup.style.opacity = '0';
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-                document.body.removeChild(popup);
-                document.body.removeChild(overlay);
-            }, 300);
-        }
     
         function showPopup(name, eta, severity, lat, lng) {
         // Create overlay
@@ -833,29 +823,15 @@ legend {
         };
 
         // Handle buttons
-        
-
-        function acceptBtn_onclick(){
-            updateAccidentAccepterStatus(name, false);
-            const currentAmbulanceCount = parseInt(ambulanceCounterElement.textContent);
-            if (currentAmbulanceCount > 0) {
-                ambulanceCounterElement.textContent = currentAmbulanceCount - 1;
-                const currentAccidentCount = parseInt(accidentCounterElement.textContent);
-                accidentCounterElement.textContent = currentAccidentCount + 1;
-                requests.push({ Name: name, ETA: eta, severity });
-                update();
-                lmarker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
-                const message = JSON.stringify({ type: 'map_update', latt: lat, lngg: lng, user: username, pname: p_name });
-                socket.send(message);
-            } else {
-                alert('No ambulances available.');
-            }
-            closePopup();
+        function closePopup() {
+            popup.style.transform = 'translate(-50%, -50%) scale(0.7)';
+            popup.style.opacity = '0';
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(popup);
+                document.body.removeChild(overlay);
+            }, 300);
         }
-
-        acceptBtn.onclick = () => {
-            
-        };
 
         async function denyBtn_onclick() {
             inp_data.type = 'Deny_request';
@@ -882,6 +858,27 @@ legend {
             toggle.click();
             closePopup();
         };
+
+        function acceptBtn_onclick(){
+            updateAccidentAccepterStatus(name, false);
+            const currentAmbulanceCount = parseInt(ambulanceCounterElement.textContent);
+            if (currentAmbulanceCount > 0) {
+                ambulanceCounterElement.textContent = currentAmbulanceCount - 1;
+                const currentAccidentCount = parseInt(accidentCounterElement.textContent);
+                accidentCounterElement.textContent = currentAccidentCount + 1;
+                requests.push({ Name: name, ETA: eta, severity });
+                update();
+                lmarker = L.marker([lat, lng]).addTo(map).bindPopup(`<b>${name}</b><br>Severity: ${severity}`).openPopup();
+                const message = JSON.stringify({ type: 'map_update', latt: lat, lngg: lng, user: username, pname: p_name });
+                socket.send(message);
+            } else {
+                alert('No ambulances available.');
+            }
+            closePopup();
+        }
+
+
+        
     }
     function toggleDropdown() {
         const dropdown = document.getElementById('userDropdown');
