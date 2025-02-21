@@ -714,6 +714,16 @@ legend {
             }
 
         };
+
+        function closePopup() {
+            popup.style.transform = 'translate(-50%, -50%) scale(0.7)';
+            popup.style.opacity = '0';
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(popup);
+                document.body.removeChild(overlay);
+            }, 300);
+        }
     
         function showPopup(name, eta, severity, lat, lng) {
         // Create overlay
@@ -823,15 +833,7 @@ legend {
         };
 
         // Handle buttons
-        function closePopup() {
-            popup.style.transform = 'translate(-50%, -50%) scale(0.7)';
-            popup.style.opacity = '0';
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-                document.body.removeChild(popup);
-                document.body.removeChild(overlay);
-            }, 300);
-        }
+        
 
         function acceptBtn_onclick(){
             updateAccidentAccepterStatus(name, false);
