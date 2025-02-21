@@ -767,7 +767,7 @@ legend {
                     </p>
                 </div>
                 <div style="display: flex; gap: 1rem; justify-content: center;">
-                    <button id="acceptBtn" onclick = "acceptBtn_onclick()" style="
+                    <button id="acceptBtn" class="acceptBtn" style="
                         padding: 0.75rem 1.5rem;
                         background: linear-gradient(135deg, var(--secondary), var(--primary));
                         color: white;
@@ -801,7 +801,7 @@ legend {
         });
     
         // Button hover effects
-        const acceptBtn = document.getElementById('acceptBtn');
+        const acceptBtn = document.querySelectorAll('.acceptBtn');
         const denyBtn = document.getElementById('denyBtn');
 
         acceptBtn.onmouseover = () => {
@@ -859,7 +859,7 @@ legend {
             closePopup();
         };
 
-        function acceptBtn_onclick(){
+        acceptBtn.onclick = () => {
             updateAccidentAccepterStatus(name, false);
             const currentAmbulanceCount = parseInt(ambulanceCounterElement.textContent);
             if (currentAmbulanceCount > 0) {
@@ -875,8 +875,7 @@ legend {
                 alert('No ambulances available.');
             }
             closePopup();
-        }
-
+        };
 
         
     }
