@@ -860,6 +860,7 @@ legend {
         };
 
         acceptBtn.onclick = () => {
+            console.log("hdf");
             updateAccidentAccepterStatus(name, false);
             const currentAmbulanceCount = parseInt(ambulanceCounterElement.textContent);
             if (currentAmbulanceCount > 0) {
