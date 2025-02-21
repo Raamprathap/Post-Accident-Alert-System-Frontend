@@ -716,10 +716,11 @@ legend {
         };
 
         function closePopup() {
-            const popupl = document.createElement('div');
+            const overlayl = document.querySelector(".overlay");
+            const popupl = document.querySelector(".popup")
             popupl.style.transform = 'translate(-50%, -50%) scale(0.7)';
             popupl.style.opacity = '0';
-            overlay.style.opacity = '0';
+            overlayl.style.opacity = '0';
             setTimeout(() => {
                 document.body.removeChild(popup);
                 document.body.removeChild(overlay);
@@ -729,6 +730,7 @@ legend {
         function showPopup(name, eta, severity, lat, lng) {
         // Create overlay
         const overlay = document.createElement('div');
+        overlay.classList.add("overlay");
         overlay.style.cssText = `
             position: fixed;
             top: 0;
@@ -745,6 +747,7 @@ legend {
         
         // Create popup
         const popup = document.createElement('div');
+        popup.classList.add("popup");
         popup.style.cssText = `
             position: fixed;
             top: 50%;
