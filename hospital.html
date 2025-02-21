@@ -714,6 +714,17 @@ legend {
             }
 
         };
+
+        function closePopup() {
+            const popupl = document.createElement('div');
+            popupl.style.transform = 'translate(-50%, -50%) scale(0.7)';
+            popupl.style.opacity = '0';
+            overlay.style.opacity = '0';
+            setTimeout(() => {
+                document.body.removeChild(popup);
+                document.body.removeChild(overlay);
+            }, 300);
+        }
     
         function showPopup(name, eta, severity, lat, lng) {
         // Create overlay
@@ -823,15 +834,7 @@ legend {
         };
 
         // Handle buttons
-        function closePopup() {
-            popup.style.transform = 'translate(-50%, -50%) scale(0.7)';
-            popup.style.opacity = '0';
-            overlay.style.opacity = '0';
-            setTimeout(() => {
-                document.body.removeChild(popup);
-                document.body.removeChild(overlay);
-            }, 300);
-        }
+        
 
         async function denyBtn_onclick() {
             inp_data.type = 'Deny_request';
