@@ -884,6 +884,32 @@ legend {
         const dropdown = document.getElementById('userDropdown');
         dropdown.classList.toggle('active');
     }
+
+    async function denyBtn_onclick() {
+            inp_data.type = 'Deny_request';
+            console.log(inp_data);
+            try {
+                const response = await fetch('https://post-accident-alert-system-backend.onrender.com/signal', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(inp_data)
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                // Only try to parse JSON if we have content
+                if (response.headers.get("content-length") !== "0") {
+                    const result = await response.json();
+                    console.log('Deny request result:', result);
+                }
+            } catch (error) {
+                console.error('Error sending deny request:', error);
+            }
+            toggle.click();
+            closePopup();
+        };
     </script>    
 </body>
 </html>
