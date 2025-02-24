@@ -704,6 +704,7 @@ legend {
                     }
                 });
             } else if (type === "hospital_request" && toggle_val === 0){
+                console.log("Unable to Accept Request");
                 inp_data.type = 'Deny_request';
                 console.log(inp_data);
                 try {
@@ -820,7 +821,6 @@ legend {
 
             document.body.appendChild(popup);
             
-            // Animate in
             requestAnimationFrame(() => {
                 overlay.style.opacity = '1';
                 popup.style.opacity = '1';
@@ -849,32 +849,6 @@ legend {
                 denyBtn.style.color = '#E74C3C';
             };
 
-        // async function denyBtn_onclick() {
-        //     inp_data.type = 'Deny_request';
-        //     console.log(inp_data);
-        //     try {
-        //         const response = await fetch('https://post-accident-alert-system-backend.onrender.com/signal', {
-        //             method: 'POST',
-        //             headers: {
-        //                 'Content-Type': 'application/json'
-        //             },
-        //             body: JSON.stringify(inp_data)
-        //         });
-        //         if (!response.ok) {
-        //             throw new Error(`HTTP error! status: ${response.status}`);
-        //         }
-        //         // Only try to parse JSON if we have content
-        //         if (response.headers.get("content-length") !== "0") {
-        //             const result = await response.json();
-        //             console.log('Deny request result:', result);
-        //         }
-        //     } catch (error) {
-        //         console.error('Error sending deny request:', error);
-        //     }
-        //     toggle.click();
-        //     closePopup();
-        // };
-
         acceptBtn.onclick = () => {
             console.log("hdf");
             updateAccidentAccepterStatus(name, false);
@@ -902,29 +876,29 @@ legend {
     }
 
     async function denyBtn_onclick() {
-            inp_data.type = 'Deny_request';
-            console.log(inp_data);
-            try {
-                const response = await fetch('https://post-accident-alert-system-backend.onrender.com/signal', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(inp_data)
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                // Only try to parse JSON if we have content
-                if (response.headers.get("content-length") !== "0") {
-                    const result = await response.json();
-                    console.log('Deny request result:', result);
-                }
-            } catch (error) {
-                console.error('Error sending deny request:', error);
+        updateAccidentAccepterStatus(name, true);
+        inp_data.type = 'Deny_request';
+        console.log(inp_data);
+        try {
+            const response = await fetch('https://post-accident-alert-system-backend.onrender.com/signal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(inp_data)
+            });
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-            toggle.click();
-            closePopup();
+            if (response.headers.get("content-length") !== "0") {
+                const result = await response.json();
+                console.log('Deny request result:', result);
+            }
+        } catch (error) {
+            console.error('Error sending deny request:', error);
+        }
+        toggle.click();
+        closePopup();
         };
     </script>    
 </body>
