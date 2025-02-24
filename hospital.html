@@ -715,126 +715,123 @@ legend {
 
         };
 
+        const overlay = document.createElement('div');
+        const popup = document.createElement('div');
+
         function closePopup() {
-            const overlayl = document.querySelector(".overlay");
-            const popupl = document.querySelector(".popup")
-            popupl.style.transform = 'translate(-50%, -50%) scale(0.7)';
-            popupl.style.opacity = '0';
-            overlayl.style.opacity = '0';
+            popup.style.transform = 'translate(-50%, -50%) scale(0.7)';
+            popup.style.opacity = '0';
+            overlay.style.opacity = '0';
             setTimeout(() => {
-                document.body.removeChild(popupl);
-                document.body.removeChild(overlayl);
+                document.body.removeChild(popup);
+                document.body.removeChild(overlay);
             }, 300);
         }
     
         function showPopup(name, eta, severity, lat, lng) {
-        // Create overlay
-        const overlay = document.createElement('div');
-        overlay.classList.add("overlay");
-        overlay.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(5px);
-            z-index: 999;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        `;
-        document.body.appendChild(overlay);
-        
-        // Create popup
-        const popup = document.createElement('div');
-        popup.classList.add("popup");
-        popup.style.cssText = `
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.7);
-            background: var(--card-bg);
-            border-radius: 15px;
-            padding: 2rem;
-            z-index: 1000;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        `;
+            overlay.classList.add("overlay");
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(5px);
+                z-index: 999;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            `;
+            document.body.appendChild(overlay);
+            
+            popup.classList.add("popup");
+            popup.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0.7);
+                background: var(--card-bg);
+                border-radius: 15px;
+                padding: 2rem;
+                z-index: 1000;
+                width: 90%;
+                max-width: 400px;
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+                opacity: 0;
+                transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            `;
 
-        const severityColor = severity === 'High' ? '#E74C3C' : 
-                            severity === 'Medium' ? '#F1C40F' : '#2ECC71';
+            const severityColor = severity === 'High' ? '#E74C3C' : 
+                                severity === 'Medium' ? '#F1C40F' : '#2ECC71';
 
-        popup.innerHTML = `
-            <div style="text-align: center;">
-                <h2 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem; 
-                        border-bottom: 2px solid ${severityColor}; padding-bottom: 0.5rem;">
-                    New Emergency Request
-                </h2>
-                <div style="background: ${severityColor}15; padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem;">
-                    <p style="margin: 0.5rem 0;"><strong>Patient:</strong> ${name}</p>
-                    <p style="margin: 0.5rem 0;"><strong>ETA:</strong> ${eta}</p>
-                    <p style="margin: 0.5rem 0;"><strong>Severity:</strong> 
-                        <span style="color: ${severityColor}; font-weight: bold;">${severity}</span>
-                    </p>
+            popup.innerHTML = `
+                <div style="text-align: center;">
+                    <h2 style="color: var(--primary); font-size: 1.5rem; margin-bottom: 1.5rem; 
+                            border-bottom: 2px solid ${severityColor}; padding-bottom: 0.5rem;">
+                        New Emergency Request
+                    </h2>
+                    <div style="background: ${severityColor}15; padding: 1rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                        <p style="margin: 0.5rem 0;"><strong>Patient:</strong> ${name}</p>
+                        <p style="margin: 0.5rem 0;"><strong>ETA:</strong> ${eta}</p>
+                        <p style="margin: 0.5rem 0;"><strong>Severity:</strong> 
+                            <span style="color: ${severityColor}; font-weight: bold;">${severity}</span>
+                        </p>
+                    </div>
+                    <div style="display: flex; gap: 1rem; justify-content: center;">
+                        <button id="acceptBtn" class="acceptBtn" style="
+                            padding: 0.75rem 1.5rem;
+                            background: linear-gradient(135deg, var(--secondary), var(--primary));
+                            color: white;
+                            border: none;
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            transition: all 0.3s ease;
+                        ">Accept</button>
+                        <button id="denyBtn" onclick="denyBtn_onclick()" style="
+                            padding: 0.75rem 1.5rem;
+                            background: transparent;
+                            color: var(--accent);
+                            border: 2px solid var(--accent);
+                            border-radius: 8px;
+                            cursor: pointer;
+                            font-weight: 600;
+                            transition: all 0.3s ease;
+                        ">Deny</button>
+                    </div>
                 </div>
-                <div style="display: flex; gap: 1rem; justify-content: center;">
-                    <button id="acceptBtn" class="acceptBtn" style="
-                        padding: 0.75rem 1.5rem;
-                        background: linear-gradient(135deg, var(--secondary), var(--primary));
-                        color: white;
-                        border: none;
-                        border-radius: 8px;
-                        cursor: pointer;
-                        font-weight: 600;
-                        transition: all 0.3s ease;
-                    ">Accept</button>
-                    <button id="denyBtn" onclick="denyBtn_onclick()" style="
-                        padding: 0.75rem 1.5rem;
-                        background: transparent;
-                        color: var(--accent);
-                        border: 2px solid var(--accent);
-                        border-radius: 8px;
-                        cursor: pointer;
-                        font-weight: 600;
-                        transition: all 0.3s ease;
-                    ">Deny</button>
-                </div>
-            </div>
-        `;
+            `;
 
-        document.body.appendChild(popup);
+            document.body.appendChild(popup);
+            
+            // Animate in
+            requestAnimationFrame(() => {
+                overlay.style.opacity = '1';
+                popup.style.opacity = '1';
+                popup.style.transform = 'translate(-50%, -50%) scale(1)';
+            });
         
-        // Animate in
-        requestAnimationFrame(() => {
-            overlay.style.opacity = '1';
-            popup.style.opacity = '1';
-            popup.style.transform = 'translate(-50%, -50%) scale(1)';
-        });
-    
-        // Button hover effects
-        const acceptBtn = document.getElementById('acceptBtn');
-        const denyBtn = document.getElementById('denyBtn');
+            // Button hover effects
+            const acceptBtn = document.getElementById('acceptBtn');
+            const denyBtn = document.getElementById('denyBtn');
 
-        acceptBtn.onmouseover = () => {
-            acceptBtn.style.transform = 'translateY(-2px)';
-            acceptBtn.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
-        };
-        acceptBtn.onmouseout = () => {
-            acceptBtn.style.transform = 'translateY(0)';
-            acceptBtn.style.boxShadow = 'none';
-        };
+            acceptBtn.onmouseover = () => {
+                acceptBtn.style.transform = 'translateY(-2px)';
+                acceptBtn.style.boxShadow = '0 5px 15px rgba(0,0,0,0.2)';
+            };
+            acceptBtn.onmouseout = () => {
+                acceptBtn.style.transform = 'translateY(0)';
+                acceptBtn.style.boxShadow = 'none';
+            };
 
-        denyBtn.onmouseover = () => {
-            denyBtn.style.backgroundColor = '#E74C3C';
-            denyBtn.style.color = 'white';
-        };
-        denyBtn.onmouseout = () => {
-            denyBtn.style.backgroundColor = 'transparent';
-            denyBtn.style.color = '#E74C3C';
-        };
+            denyBtn.onmouseover = () => {
+                denyBtn.style.backgroundColor = '#E74C3C';
+                denyBtn.style.color = 'white';
+            };
+            denyBtn.onmouseout = () => {
+                denyBtn.style.backgroundColor = 'transparent';
+                denyBtn.style.color = '#E74C3C';
+            };
 
         // Handle buttons
         
