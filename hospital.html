@@ -878,6 +878,7 @@ legend {
     async function denyBtn_onclick() {
         toggle.click();
         closePopup();
+        console.log(toggle);
         updateAccidentAccepterStatus(name, true);
         inp_data.type = 'Deny_request';
         console.log(inp_data);
@@ -900,7 +901,7 @@ legend {
             console.error('Error sending deny request:', error);
         }
         };
-        
+
     </script>    
 </body>
 </html>
