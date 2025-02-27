@@ -658,7 +658,7 @@ legend {
         };
 
         toggle.addEventListener("click", async () => {
-            const message = JSON.stringify({ type: 'status_update', hname: `${username}`});
+            const message = { type: 'status_update', hname: `${username}`};
             try {
                 const response = await fetch('https://post-accident-alert-system-backend.onrender.com/signal', {
                     method: 'POST',
