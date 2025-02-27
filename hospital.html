@@ -621,11 +621,6 @@ legend {
             }
         }
     
-        toggle.addEventListener("click", () => {
-            toggle_val = toggle_val === 0 ? 1 : 0;
-            update();
-        });
-    
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
         console.log("Username received:", username);
@@ -661,6 +656,13 @@ legend {
         socket.onclose = () => {
             console.warn('WebSocket connection closed in hospital.html');
         };
+
+        toggle.addEventListener("click", () => {
+            const message = JSON.stringify({ type: 'status_update', hname: `${username}`, status: toggle_val === 0 ? true : false});
+            socket.send(message);
+            toggle_val = toggle_val === 0 ? 1 : 0;
+            update();
+        });
 
         let p_name=null;
         let inp_data = null;
