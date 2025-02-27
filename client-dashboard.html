@@ -523,7 +523,7 @@
             const userLat = position.coords.latitude;
             const userLon = position.coords.longitude;
 
-            document.querySelector(".button").addEventListener('click', () => {
+            document.querySelector(".button").addEventListener('click', async () => {
                 const data = {"type": "hospital_request",
                                     "name": userImages[username]['name'],
                                     "severity": "10",
@@ -532,8 +532,25 @@
                                     "lng": userLon
                             };
                 console.log(data);
-                const message = JSON.stringify(data);
-                socket.send(message);
+                try {
+                    console.log("Before fetching...");
+                    const response = await fetch('https://post-accident-alert-system-backend.onrender.com/signal', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    if (response.headers.get("content-length") !== "0") {
+                        const result = await response.json();
+                        console.log('SOS request result:', result);
+                    }
+                } catch (error) {
+                    console.error('Error sending SOS request:', error);
+                }
             })
         }
         getUserLocation();
