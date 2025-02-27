@@ -658,7 +658,7 @@ legend {
         };
 
         toggle.addEventListener("click", () => {
-            const message = JSON.stringify({ type: 'status_update', hname: `${username}`, status: toggle_val === 0 ? true : false});
+            const message = JSON.stringify({ type: 'status_update', hname: `${username}`});
             socket.send(message);
             toggle_val = toggle_val === 0 ? 1 : 0;
             update();
