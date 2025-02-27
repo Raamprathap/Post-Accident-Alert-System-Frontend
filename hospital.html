@@ -631,35 +631,39 @@ legend {
             console.warn('WebSocket connection closed in hospital.html');
         };
 
+        let statusUpdatePromise = Promise.resolve(); // Ensures first call doesn't hang
+
         toggle.addEventListener("click", async () => {
-            const message = { type: 'status_update', hname: `${username}`, status: toggle_val === 0 ? true : false};
-            try {
-                console.log("Before fetching...");
-                const response = await fetch('https://post-accident-alert-system-backend.onrender.com/signal', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(message)
-                });
+            statusUpdatePromise = (async () => {
+                const message = { type: 'status_update', hname: `${username}`, status: toggle_val === 0 ? true : false };
+                try {
+                    console.log("Before fetching...");
+                    const response = await fetch('https://post-accident-alert-system-backend.onrender.com/signal', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(message)
+                    });
 
-                console.log("Before updating toggle_val:", toggle_val);
-                toggle_val = toggle_val === 0 ? 1 : 0;
-                console.log("Updated toggle_val:", toggle_val);
+                    console.log("Before updating toggle_val:", toggle_val);
+                    toggle_val = toggle_val === 0 ? 1 : 0;
+                    console.log("Updated toggle_val:", toggle_val);
 
-                console.log("Before update()");
-                update();
-                console.log("After update()");
+                    console.log("Before update()");
+                    update();
+                    console.log("After update()");
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+
+                    if (response.headers.get("content-length") !== "0") {
+                        const result = await response.json();
+                        console.log('Status update result:', result);
+                    }
+                } catch (error) {
+                    console.error('Error sending status update:', error);
                 }
-
-                if (response.headers.get("content-length") !== "0") {
-                    const result = await response.json();
-                    console.log('Deny request result:', result);
-                }
-            } catch (error) {
-                console.error('Error sending deny request:', error);
-            }
+            })();
         });
 
         let p_name=null;
@@ -827,7 +831,6 @@ legend {
             };
 
         acceptBtn.onclick = () => {
-            console.log("hdf");
             updateAccidentAccepterStatus(name, false);
             const currentAmbulanceCount = parseInt(ambulanceCounterElement.textContent);
             if (currentAmbulanceCount > 0) {
@@ -853,23 +856,27 @@ legend {
     }
 
     async function denyBtn_onclick() {
-        toggle.click();
-        closePopup();
-        console.log(toggle);
-        updateAccidentAccepterStatus(name, true);
-        inp_data.type = 'Deny_request';
-        console.log(inp_data);
+        toggle.click(); // Triggers the status update request
+
         try {
+            await statusUpdatePromise; // Wait for status_update request to complete
+
+            closePopup();
+            console.log(toggle);
+            updateAccidentAccepterStatus(name, true);
+            inp_data.type = 'Deny_request';
+            console.log(inp_data);
+
             const response = await fetch('https://post-accident-alert-system-backend.onrender.com/signal', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(inp_data)
             });
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
+
             if (response.headers.get("content-length") !== "0") {
                 const result = await response.json();
                 console.log('Deny request result:', result);
@@ -877,7 +884,7 @@ legend {
         } catch (error) {
             console.error('Error sending deny request:', error);
         }
-    };
+    }
 
     </script>    
 </body>
