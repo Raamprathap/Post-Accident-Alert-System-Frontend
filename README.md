@@ -32,10 +32,7 @@ Post Accident Alert System/
 ---
 
 ## 🚀 **Getting Started**
-
-### **Prerequisites**  
-Ensure you have a modern web browser such as **Chrome**, **Edge**, or **Firefox** to run the project.
-
+ 
 ### **How to Run**
 1. Clone this repository:  
 
@@ -49,17 +46,15 @@ Ensure you have a modern web browser such as **Chrome**, **Edge**, or **Firefox*
    cd Post-Accident-Alert-System
    ```  
 
-3. Open **index.html** in your browser to launch the application.
+3. Open **index.html** in your browser.
 
 ---
 
 ## 🛠 **Technologies Used**
 
-- **HTML5:** Structuring the web application  
-- **CSS3:** Styling and layout (with `driver.css`)  
-- **JavaScript (ES6):** Dynamic and interactive features (`driver.js`)  
-- **WebP Images:** Optimized image assets for faster loading  
-
+- `HTML5`, `CSS3`, `JavaScript (ES6)`
+- `WebP` Images for optimized performance   
+ 
 ---
 
 ## 📞 **Contact**
@@ -84,6 +79,11 @@ The backend handles accident detection, user authentication, and alert notificat
 
 ---
 
+### Demo Video
+Watch our demo video : [Post Accident Alert System Demo](https://drive.google.com/file/d/1Tzeq6simlTILJcOodSM1JiZsNi3x_R4g/view?usp=drive_link)
+
+---
+
 ## ⭐ **Contributions & Improvements**  
 
 We welcome contributions to improve this project! Feel free to **fork** the repository, make changes, and submit **pull requests** to help us enhance road safety and emergency response efficiency.  
@@ -91,6 +91,3 @@ We welcome contributions to improve this project! Feel free to **fork** the repo
 💡 *Your contributions are highly appreciated!* 🚀  
 
 ---
-
-### Demo Video
-Watch our demo video on YouTube: [Post Accident Alert System Demo](https://drive.google.com/file/d/1Tzeq6simlTILJcOodSM1JiZsNi3x_R4g/view?usp=drive_link)
