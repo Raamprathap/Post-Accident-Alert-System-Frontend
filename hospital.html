@@ -657,9 +657,26 @@ legend {
             console.warn('WebSocket connection closed in hospital.html');
         };
 
-        toggle.addEventListener("click", () => {
+        toggle.addEventListener("click", async () => {
             const message = JSON.stringify({ type: 'status_update', hname: `${username}`});
-            socket.send(message);
+            try {
+                const response = await fetch('https://post-accident-alert-system-backend.onrender.com/signal', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(message)
+                });
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                if (response.headers.get("content-length") !== "0") {
+                    const result = await response.json();
+                    console.log('Deny request result:', result);
+                }
+            } catch (error) {
+                console.error('Error sending deny request:', error);
+            }
             toggle_val = toggle_val === 0 ? 1 : 0;
             update();
         });
