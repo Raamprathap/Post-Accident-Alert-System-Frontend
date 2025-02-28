@@ -1,6 +1,3 @@
-
-// Verions -2 
-
 const map = L.map('map'); // Initialize the map without a location
 let userMarker;
 let hospitalMarker;
