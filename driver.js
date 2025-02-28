@@ -39,8 +39,6 @@ function success(position) {
     userMarker = L.marker([userLat, userLon]).addTo(map);
     userMarker.bindPopup("You are here").openPopup();
 
-    // Fetch nearest hospital
-    //findNearestHospital(userLat, userLon);
 }
 
 // Establish WebSocket connection
@@ -166,44 +164,6 @@ function getRouteToReceivedLocation(lat, lng) {
 
 function error() {
     document.getElementById('status').textContent = 'Unable to retrieve your location.';
-}
-
-function findNearestHospital(lat, lon) {
-    const overpassUrl = `https://overpass-api.de/api/interpreter?data=[out:json];node["amenity"="hospital"](around:25000,${lat},${lon});out;`;
-
-    fetch(overpassUrl)
-        .then(response => response.json())
-        .then(data => {
-            const hospitals = data.elements;
-
-            if (hospitals.length === 0) {
-                document.getElementById('status').textContent = 'No hospitals found nearby.';
-                return;
-            }
-
-            // Find the nearest hospital
-            let nearestHospital = null;
-            let minDistance = Infinity;
-
-            hospitals.forEach(hospital => {
-                const distance = userMarker.getLatLng().distanceTo([hospital.lat, hospital.lon]); // Use Leaflet's built-in distanceTo method
-                if (distance < minDistance) {
-                    minDistance = distance;
-                    nearestHospital = hospital;
-                }
-            });
-
-            // Add a marker for the nearest hospital
-            hospitalMarker = L.marker([nearestHospital.lat, nearestHospital.lon]).addTo(map);
-            hospitalMarker.bindPopup(`${nearestHospital.tags.name}<br>Distance: ${(minDistance / 1000).toFixed(2)} km`).openPopup();
-
-            // Use Leaflet Routing Machine to get the route
-            getRoute(lat, lon, nearestHospital.lat, nearestHospital.lon);
-        })
-        .catch(err => {
-            console.error(err);
-            document.getElementById('status').textContent = 'Error fetching hospital data.';
-        });
 }
 
 // Function to get route using Leaflet Routing Machine
