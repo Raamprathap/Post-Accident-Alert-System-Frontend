@@ -22,7 +22,7 @@
         justify-content: center;
         align-items: center;
         min-height: 100vh;
-        overflow-x: hidden;
+        overflow: hidden;
         position: relative;
     }
     
@@ -256,6 +256,9 @@
     
     /* Responsive styles */
     @media screen and (max-width: 768px) {
+        body{
+            overflow-y: scroll;
+        }
         .card-container {
             flex-direction: column;
             padding: 20px;

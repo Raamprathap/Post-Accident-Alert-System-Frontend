@@ -863,10 +863,10 @@
     }
 
     async function denyBtn_onclick() {
-        toggle.click(); // Triggers the status update request
+        toggle.click();
 
         try {
-            await statusUpdatePromise; // Wait for status_update request to complete
+            await statusUpdatePromise;
 
             closePopup();
             console.log(toggle);
