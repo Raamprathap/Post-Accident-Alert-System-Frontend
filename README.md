@@ -54,19 +54,8 @@ Post Accident Alert System/
 
 - `HTML5`, `CSS3`, `JavaScript (ES6)`
 - `WebP` Images for optimized performance   
+
  
----
-
-## 📞 **Contact**
-
-- 👤 **Raam Prathap**  
-  📧 Email: [raamprathap17242@gmail.com](mailto:raamprathap17242@gmail.com)  
-  🔗 GitHub: [Raam Prathap](https://github.com/Raamprathap)  
-
-- 👤 **Akshay KS**  
-  📧 Email: [akshayks1005@gmail.com](mailto:akshayks1005@gmail.com)  
-  🔗 GitHub: [Akshay KS](https://github.com/akshayks13)  
-
 ---
 ## Post Accident Alert System - Backend  
 
@@ -91,3 +80,22 @@ We welcome contributions to improve this project! Feel free to **fork** the repo
 💡 *Your contributions are highly appreciated!* 🚀  
 
 ---
+
+## 📜 License
+
+This project is licensed under the **MIT License** - see the LICENSE file for details.
+
+---
+
+## 📞 **Contact**
+
+- 👤 **Raam Prathap**  
+  📧 Email: [raamprathap17242@gmail.com](mailto:raamprathap17242@gmail.com)  
+  🔗 GitHub: [Raam Prathap](https://github.com/Raamprathap)  
+
+- 👤 **Akshay KS**  
+  📧 Email: [akshayks1005@gmail.com](mailto:akshayks1005@gmail.com)  
+  🔗 GitHub: [Akshay KS](https://github.com/akshayks13)
+
+---
+💡 *Built with passion by Raamp and akshayks13* 🚀
